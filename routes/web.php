@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\Test\mehdiTestController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -41,4 +42,14 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/testmehdi', function () {
 Route::middleware(['auth:sanctum','verified'])->prefix('test')->group(function(){
     Route::get('/index',[mehdiTestController::class,'index'])->name('mehdiindex');
     Route::get('/homepage',[mehdiTestController::class,'homepage'])->name("homepage");
+});
+
+
+
+
+
+
+/// admin crud
+Route::middleware(['auth:sanctum', 'verified'])->prefix('admin')->group(function(){
+Route::resource('blog', BlogController::class);
 });
