@@ -19,4 +19,7 @@ class mehdiTestController extends Controller
              ];
          })]);
     }
+    public function homepage(){
+        return Inertia::render('test/homepage');
+    }
 }

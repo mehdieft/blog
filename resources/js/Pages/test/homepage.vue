@@ -1,14 +1,15 @@
 <template>
-  <Layout>
-    <Head title="Welcome" />
-    <H1>Welcome</H1>
-    <p>hello mehdi this is the test</p>
-    <!-- {{$page.props}} -->
-  </Layout>
+   <app-layout title="Dashboard">
+     
+
+        <div class="py-12">
+
+        </div>
+    </app-layout>
 </template>
 
 <script>
-//   import Layout from './Layout'
+  import AppLayout from '../../Layouts/AppLayout.vue'
 //   import { Head } from '@inertiajs/inertia-vue3'
 
   export default {
@@ -17,12 +18,9 @@
       },
       mounted(){
           console.log("hello");
-          console.log("this is data",this.users[0])
       },
-      props:['users'],
-
       components:{
-
+          AppLayout,
       }
 
     // components: {
