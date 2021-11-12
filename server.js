@@ -1,6 +1,22 @@
-const io = require('socket.io')(3000);
+// const io = require('socket.io')(3000);
 
 const mysql =require('mysql');
+const express = require("express");
+
+
+const { Server } = require("socket.io");
+
+const io = new Server(3000, { /* options */ });
+
+io.on("connection", (socket) => {
+  // ...
+  console.log("fuck you")
+});
+
+
+io.on("connection", function (socket) {
+  console.log("Made socket connection");
+});
 
 
 var connection=mysql.createConnection({
@@ -17,7 +33,6 @@ connection.connect(function(err){
     connection.query("SELECT email,id,name FROM users",function(err,result,fields){
         if(err) throw err;
         console.log("data from users",result);
-
     })
 });
 
@@ -25,12 +40,6 @@ connection.connect(function(err){
 
 
 
-
-//this part  is for connection to  socket.io
-
-io.on("connection", socket=>{
-    console.log("main of socket function",socket)
-})
 
 
 

@@ -61,10 +61,24 @@
 
 <script>
 import AppLayout from "../../Layouts/AppLayout.vue";
+import  openSocket from 'socket.io-client'
 //   import { Head } from '@inertiajs/inertia-vue3'
 
 export default {
-    methods() {},
+    
+    
+    
+    created() {
+       openSocket('https://localhost:3000')
+    },
+
+
+
+
+
+    methods() {
+        openSocket('https://localhost:3000',{ transports : ['websocket'] })
+    },
     mounted() {
         console.log("hello");
     },
