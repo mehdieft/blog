@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="text-gray-700">
         <div>
             <nav>
                 <div>
@@ -7,7 +7,7 @@
                 </div>
                 <ul>
                     <li>
-                        <a href=""><span>home</span></a>
+                        <a class="text-red-700" href=""><span>sweet home</span></a>
                     </li>
                     <li>
                         <a href=""><span>home</span></a>
@@ -34,9 +34,26 @@
             <div>
                 <h4>آخرین اخبار</h4>
                 <div>
-                   
+                    <div>
+                        <img src="" alt="" />
+                        <div>
+                            <span>this text</span>
+                            <span>this text</span>
+                        </div>
+                    </div>
+
+                    <!--کارت های اخبار-->
                 </div>
-                <!--کارت های اخبار-->
+                <h4 >اطلاعیه</h4>
+                <div>
+                    <div>
+                        <img src="" alt="" />
+                        <div>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </main>
     </div>
