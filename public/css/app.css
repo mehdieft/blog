@@ -1555,10 +1555,6 @@ select{
 	font-size: 1.25rem;
 	line-height: 1.75rem;
 }
-.text-6xl{
-	font-size: 3.75rem;
-	line-height: 1;
-}
 .font-medium{
 	font-weight: 500;
 }
@@ -1653,10 +1649,6 @@ select{
 .text-gray-300{
 	--tw-text-opacity: 1;
 	color: rgba(209, 213, 219, var(--tw-text-opacity));
-}
-.text-red-900{
-	--tw-text-opacity: 1;
-	color: rgba(127, 29, 29, var(--tw-text-opacity));
 }
 .text-red-700{
 	--tw-text-opacity: 1;
