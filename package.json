@@ -26,6 +26,10 @@
         "vue-loader": "^16.1.2"
     },
     "dependencies": {
+        "express": "^4.17.1",
+        "mysql": "^2.18.1",
+        "socket.io": "^4.3.2",
+        "socket.io-client": "^4.3.2",
         "vuetify": "^2.5.14"
     }
 }
