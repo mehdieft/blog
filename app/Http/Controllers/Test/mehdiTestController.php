@@ -22,4 +22,7 @@ class mehdiTestController extends Controller
     public function homepage(){
         return Inertia::render('test/homepage');
     }
+    public function chat(){
+        return Inertia::render('test/chat');
+    }
 }
