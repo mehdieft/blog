@@ -1,22 +1,28 @@
 // const io = require('socket.io')(3000);
 
 const mysql =require('mysql');
-const express = require("express");
+const app = require("express");
+const server=require('http').createServer(app);
+const cors = require('cors');
+const io =require('socket.io')(server,{
+  cors: {
+      origin: "*",
+      //this should be the website address
+      // methods: ["GET", "POST"]
+    }
+
+});
 
 
-const { Server } = require("socket.io");
 
-const io = new Server(3000, { /* options */ });
 
 io.on("connection", (socket) => {
   // ...
-  console.log("fuck you")
+  console.log("fuck you",socket)
 });
 
 
-io.on("connection", function (socket) {
-  console.log("Made socket connection");
-});
+
 
 
 var connection=mysql.createConnection({
@@ -35,6 +41,7 @@ connection.connect(function(err){
         console.log("data from users",result);
     })
 });
+server.listen(3000,()=>{console.log("server is work in port 3000");})
 
 
 

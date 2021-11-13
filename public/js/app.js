@@ -21439,14 +21439,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Layouts_AppLayout_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../Layouts/AppLayout.vue */ "./resources/js/Layouts/AppLayout.vue");
 /* harmony import */ var socket_io_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! socket.io-client */ "./node_modules/socket.io-client/build/esm/index.js");
 
- //   import { Head } from '@inertiajs/inertia-vue3'
+
+var socet = socket_io_client__WEBPACK_IMPORTED_MODULE_1__["default"].connect('http://localhost:3000'); //   import { Head } from '@inertiajs/inertia-vue3'
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  created: function created() {
-    (0,socket_io_client__WEBPACK_IMPORTED_MODULE_1__["default"])('https://localhost:3000');
-  },
+  created: function created() {},
   methods: function methods() {
-    (0,socket_io_client__WEBPACK_IMPORTED_MODULE_1__["default"])('https://localhost:3000', {
+    openSocket('https://localhost:3000', {
       transports: ['websocket']
     });
   },

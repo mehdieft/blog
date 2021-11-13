@@ -61,7 +61,8 @@
 
 <script>
 import AppLayout from "../../Layouts/AppLayout.vue";
-import  openSocket from 'socket.io-client'
+import  io from 'socket.io-client';
+const socet=io.connect('http://localhost:3000')
 //   import { Head } from '@inertiajs/inertia-vue3'
 
 export default {
@@ -69,7 +70,6 @@ export default {
     
     
     created() {
-       openSocket('https://localhost:3000')
     },
 
 
