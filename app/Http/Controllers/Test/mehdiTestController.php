@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Test;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class mehdiTestController extends Controller
@@ -23,6 +24,7 @@ class mehdiTestController extends Controller
         return Inertia::render('test/homepage');
     }
     public function chat(){
-        return Inertia::render('test/chat');
+        $sender=Auth::user()->email;
+        return Inertia::render('test/chat',['sender'=>$sender]);
     }
 }
