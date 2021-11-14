@@ -21387,6 +21387,27 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/test/adminchat.vue?vue&type=script&lang=js":
+/*!***************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/test/adminchat.vue?vue&type=script&lang=js ***!
+  \***************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ['users', 'sender'],
+  created: function created() {
+    console.log("this is all users", this.users);
+    console.log("this is admin", this.sender);
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/test/blogcards.vue?vue&type=script&lang=js":
 /*!***************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/test/blogcards.vue?vue&type=script&lang=js ***!
@@ -21421,17 +21442,22 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var socket = socket_io_client__WEBPACK_IMPORTED_MODULE_0__["default"].connect('http://localhost:5000');
+var socket = socket_io_client__WEBPACK_IMPORTED_MODULE_0__["default"].connect("http://localhost:5000");
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ['sender', 'reciever'],
   data: function data() {
     return {
-      massage: 'hello zepp'
+      massage: "hello zepp"
     };
   },
   methods: {
     sendmassage: function sendmassage() {
-      var socket = socket_io_client__WEBPACK_IMPORTED_MODULE_0__["default"].connect('http://localhost:5000');
-      socket.emit('sendmassage', this.massage);
+      var socket = socket_io_client__WEBPACK_IMPORTED_MODULE_0__["default"].connect("http://localhost:5000");
+      socket.emit("sendmassage", {
+        sender: this.sender,
+        reciever: this.reciever,
+        massage: this.massage
+      });
       this.massage = "";
       console.log("this is fuck", this.socket);
     }
@@ -21440,8 +21466,11 @@ var socket = socket_io_client__WEBPACK_IMPORTED_MODULE_0__["default"].connect('h
     AppLayout: _Layouts_AppLayout_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     Welcome: _Jetstream_Welcome_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
-  mounted: function mounted() {
+  mounted: function mounted() {},
+  created: function created() {
     openSocket("http://localhost:5000");
+    console.log("this is sender", this.sender);
+    console.log("this is reciever", this.reciever);
   }
 });
 
@@ -26031,6 +26060,23 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/test/adminchat.vue?vue&type=template&id=94b1729a":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/test/adminchat.vue?vue&type=template&id=94b1729a ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render)
+/* harmony export */ });
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  return null;
+}
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/test/blogcards.vue?vue&type=template&id=0a499f8d":
 /*!*******************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/test/blogcards.vue?vue&type=template&id=0a499f8d ***!
@@ -26165,186 +26211,13 @@ var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 );
 
 var _hoisted_5 = {
-  id: "messages",
-  "class": "flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch"
-};
-
-var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "chat-message"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "flex items-end"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "flex flex-col space-y-2 text-xs max-w-xs mx-2 order-2 items-start"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
-  "class": "px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-300 text-gray-600"
-}, "Can be verified on any platform using docker")])]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-  src: "https://images.unsplash.com/photo-1549078642-b2ba4bda0cdb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=144&h=144",
-  alt: "My profile",
-  "class": "w-6 h-6 rounded-full order-1"
-})])], -1
-/* HOISTED */
-);
-
-var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "chat-message"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "flex items-end justify-end"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "flex flex-col space-y-2 text-xs max-w-xs mx-2 order-1 items-end"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
-  "class": "px-4 py-2 rounded-lg inline-block rounded-br-none bg-blue-600 text-white"
-}, "Your error message says permission denied, npm global installs must be given root privileges.")])]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-  src: "https://images.unsplash.com/photo-1590031905470-a1a1feacbb0b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=144&h=144",
-  alt: "My profile",
-  "class": "w-6 h-6 rounded-full order-2"
-})])], -1
-/* HOISTED */
-);
-
-var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "chat-message"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "flex items-end"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "flex flex-col space-y-2 text-xs max-w-xs mx-2 order-2 items-start"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
-  "class": "px-4 py-2 rounded-lg inline-block bg-gray-300 text-gray-600"
-}, "Command was run with root privileges. I'm sure about that.")]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
-  "class": "px-4 py-2 rounded-lg inline-block bg-gray-300 text-gray-600"
-}, "I've update the description so it's more obviously now")]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
-  "class": "px-4 py-2 rounded-lg inline-block bg-gray-300 text-gray-600"
-}, "FYI https://askubuntu.com/a/700266/510172")]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
-  "class": "px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-300 text-gray-600"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Check the line above (it ends with a # so, I'm running it as root ) "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("pre", null, "# npm install -g @vue/devtools")])])]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-  src: "https://images.unsplash.com/photo-1549078642-b2ba4bda0cdb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=144&h=144",
-  alt: "My profile",
-  "class": "w-6 h-6 rounded-full order-1"
-})])], -1
-/* HOISTED */
-);
-
-var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "chat-message"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "flex items-end justify-end"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "flex flex-col space-y-2 text-xs max-w-xs mx-2 order-1 items-end"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
-  "class": "px-4 py-2 rounded-lg inline-block rounded-br-none bg-blue-600 text-white"
-}, "Any updates on this issue? I'm getting the same error when trying to install devtools. Thanks")])]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-  src: "https://images.unsplash.com/photo-1590031905470-a1a1feacbb0b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=144&h=144",
-  alt: "My profile",
-  "class": "w-6 h-6 rounded-full order-2"
-})])], -1
-/* HOISTED */
-);
-
-var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "chat-message"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "flex items-end"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "flex flex-col space-y-2 text-xs max-w-xs mx-2 order-2 items-start"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
-  "class": "px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-300 text-gray-600"
-}, "Thanks for your message David. I thought I'm alone with this issue. Please, 👍 the issue to support it :)")])]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-  src: "https://images.unsplash.com/photo-1549078642-b2ba4bda0cdb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=144&h=144",
-  alt: "My profile",
-  "class": "w-6 h-6 rounded-full order-1"
-})])], -1
-/* HOISTED */
-);
-
-var _hoisted_11 = {
-  "class": "chat-message"
-};
-var _hoisted_12 = {
-  "class": "flex items-end justify-end"
-};
-var _hoisted_13 = {
-  "class": "flex flex-col space-y-2 text-xs max-w-xs mx-2 order-1 items-end"
-};
-
-var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
-  "class": "px-4 py-2 rounded-lg inline-block bg-blue-600 text-white"
-}, "Are you using sudo?")], -1
-/* HOISTED */
-);
-
-var _hoisted_15 = {
-  "class": "px-4 py-2 rounded-lg inline-block rounded-br-none bg-blue-600 text-white"
-};
-
-var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-  src: "https://images.unsplash.com/photo-1590031905470-a1a1feacbb0b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=144&h=144",
-  alt: "My profile",
-  "class": "w-6 h-6 rounded-full order-2"
-}, null, -1
-/* HOISTED */
-);
-
-var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "chat-message"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "flex items-end"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "flex flex-col space-y-2 text-xs max-w-xs mx-2 order-2 items-start"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
-  "class": "px-4 py-2 rounded-lg inline-block bg-gray-300 text-gray-600"
-}, "It seems like you are from Mac OS world. There is no /Users/ folder on linux 😄")]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
-  "class": "px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-300 text-gray-600"
-}, "I have no issue with any other packages installed with root permission globally.")])]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-  src: "https://images.unsplash.com/photo-1549078642-b2ba4bda0cdb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=144&h=144",
-  alt: "My profile",
-  "class": "w-6 h-6 rounded-full order-1"
-})])], -1
-/* HOISTED */
-);
-
-var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "chat-message"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "flex items-end justify-end"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "flex flex-col space-y-2 text-xs max-w-xs mx-2 order-1 items-end"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
-  "class": "px-4 py-2 rounded-lg inline-block rounded-br-none bg-blue-600 text-white"
-}, "yes, I have a mac. I never had issues with root permission as well, but this helped me to solve the problem")])]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-  src: "https://images.unsplash.com/photo-1590031905470-a1a1feacbb0b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=144&h=144",
-  alt: "My profile",
-  "class": "w-6 h-6 rounded-full order-2"
-})])], -1
-/* HOISTED */
-);
-
-var _hoisted_19 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "chat-message"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "flex items-end"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "flex flex-col space-y-2 text-xs max-w-xs mx-2 order-2 items-start"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
-  "class": "px-4 py-2 rounded-lg inline-block bg-gray-300 text-gray-600"
-}, "I get the same error on Arch Linux (also with sudo)")]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
-  "class": "px-4 py-2 rounded-lg inline-block bg-gray-300 text-gray-600"
-}, "I also have this issue, Here is what I was doing until now: #1076")]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
-  "class": "px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-300 text-gray-600"
-}, "even i am facing")])]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-  src: "https://images.unsplash.com/photo-1549078642-b2ba4bda0cdb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=144&h=144",
-  alt: "My profile",
-  "class": "w-6 h-6 rounded-full order-1"
-})])], -1
-/* HOISTED */
-);
-
-var _hoisted_20 = {
   "class": "border-t-2 border-gray-200 px-4 pt-4 mb-2 sm:mb-0"
 };
-var _hoisted_21 = {
+var _hoisted_6 = {
   "class": "relative flex"
 };
 
-var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
   "class": "absolute inset-y-0 flex items-center"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
   type: "button",
@@ -26364,15 +26237,15 @@ var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 /* HOISTED */
 );
 
-var _hoisted_23 = ["value"];
+var _hoisted_8 = ["value"];
 
-var _hoisted_24 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
   type: "submit"
 }, null, -1
 /* HOISTED */
 );
 
-var _hoisted_25 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "absolute right-0 items-center inset-y-0 hidden sm:flex"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
   type: "button",
@@ -26446,9 +26319,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return [_hoisted_1];
     }),
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [_hoisted_6, _hoisted_7, _hoisted_8, _hoisted_9, _hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [_hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_15, "Run this command sudo chown -R `whoami` /Users/" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.your_user_profile) + "/.npm-global/ then install the package globally without using sudo", 1
-      /* TEXT */
-      )])]), _hoisted_16])]), _hoisted_17, _hoisted_18, _hoisted_19]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [_hoisted_22, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div\r\n                    id=\"messages\"\r\n                    class=\"\r\n                        flex flex-col\r\n                        space-y-4\r\n                        p-3\r\n                        overflow-y-auto\r\n                        scrollbar-thumb-blue\r\n                        scrollbar-thumb-rounded\r\n                        scrollbar-track-blue-lighter\r\n                        scrollbar-w-2\r\n                        scrolling-touch\r\n                    \"\r\n                >\r\n                    <div class=\"chat-message\">\r\n                        <div class=\"flex items-end\">\r\n                            <div\r\n                                class=\"\r\n                                    flex flex-col\r\n                                    space-y-2\r\n                                    text-xs\r\n                                    max-w-xs\r\n                                    mx-2\r\n                                    order-2\r\n                                    items-start\r\n                                \"\r\n                            >\r\n                                <div>\r\n                                    <span\r\n                                        class=\"\r\n                                            px-4\r\n                                            py-2\r\n                                            rounded-lg\r\n                                            inline-block\r\n                                            rounded-bl-none\r\n                                            bg-gray-300\r\n                                            text-gray-600\r\n                                        \"\r\n                                        >Can be verified on any platform using\r\n                                        docker</span\r\n                                    >\r\n                                </div>\r\n                            </div>\r\n                            <img\r\n                                src=\"https://images.unsplash.com/photo-1549078642-b2ba4bda0cdb?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=3&amp;w=144&amp;h=144\"\r\n                                alt=\"My profile\"\r\n                                class=\"w-6 h-6 rounded-full order-1\"\r\n                            />\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"chat-message\">\r\n                        <div class=\"flex items-end justify-end\">\r\n                            <div\r\n                                class=\"\r\n                                    flex flex-col\r\n                                    space-y-2\r\n                                    text-xs\r\n                                    max-w-xs\r\n                                    mx-2\r\n                                    order-1\r\n                                    items-end\r\n                                \"\r\n                            >\r\n                                <div>\r\n                                    <span\r\n                                        class=\"\r\n                                            px-4\r\n                                            py-2\r\n                                            rounded-lg\r\n                                            inline-block\r\n                                            rounded-br-none\r\n                                            bg-blue-600\r\n                                            text-white\r\n                                        \"\r\n                                        >Your error message says permission\r\n                                        denied, npm global installs must be\r\n                                        given root privileges.</span\r\n                                    >\r\n                                </div>\r\n                            </div>\r\n                            <img\r\n                                src=\"https://images.unsplash.com/photo-1590031905470-a1a1feacbb0b?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=3&amp;w=144&amp;h=144\"\r\n                                alt=\"My profile\"\r\n                                class=\"w-6 h-6 rounded-full order-2\"\r\n                            />\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"chat-message\">\r\n                        <div class=\"flex items-end\">\r\n                            <div\r\n                                class=\"\r\n                                    flex flex-col\r\n                                    space-y-2\r\n                                    text-xs\r\n                                    max-w-xs\r\n                                    mx-2\r\n                                    order-2\r\n                                    items-start\r\n                                \"\r\n                            >\r\n                                <div>\r\n                                    <span\r\n                                        class=\"\r\n                                            px-4\r\n                                            py-2\r\n                                            rounded-lg\r\n                                            inline-block\r\n                                            bg-gray-300\r\n                                            text-gray-600\r\n                                        \"\r\n                                        >Command was run with root privileges.\r\n                                        I'm sure about that.</span\r\n                                    >\r\n                                </div>\r\n                                <div>\r\n                                    <span\r\n                                        class=\"\r\n                                            px-4\r\n                                            py-2\r\n                                            rounded-lg\r\n                                            inline-block\r\n                                            bg-gray-300\r\n                                            text-gray-600\r\n                                        \"\r\n                                        >I've update the description so it's\r\n                                        more obviously now</span\r\n                                    >\r\n                                </div>\r\n                                <div>\r\n                                    <span\r\n                                        class=\"\r\n                                            px-4\r\n                                            py-2\r\n                                            rounded-lg\r\n                                            inline-block\r\n                                            bg-gray-300\r\n                                            text-gray-600\r\n                                        \"\r\n                                        >FYI\r\n                                        https://askubuntu.com/a/700266/510172</span\r\n                                    >\r\n                                </div>\r\n                                <div>\r\n                                    <span\r\n                                        class=\"\r\n                                            px-4\r\n                                            py-2\r\n                                            rounded-lg\r\n                                            inline-block\r\n                                            rounded-bl-none\r\n                                            bg-gray-300\r\n                                            text-gray-600\r\n                                        \"\r\n                                    >\r\n                                        Check the line above (it ends with a #\r\n                                        so, I'm running it as root )\r\n                                        <pre>\r\n# npm install -g @vue/devtools</pre\r\n                                        >\r\n                                    </span>\r\n                                </div>\r\n                            </div>\r\n                            <img\r\n                                src=\"https://images.unsplash.com/photo-1549078642-b2ba4bda0cdb?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=3&amp;w=144&amp;h=144\"\r\n                                alt=\"My profile\"\r\n                                class=\"w-6 h-6 rounded-full order-1\"\r\n                            />\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"chat-message\">\r\n                        <div class=\"flex items-end justify-end\">\r\n                            <div\r\n                                class=\"\r\n                                    flex flex-col\r\n                                    space-y-2\r\n                                    text-xs\r\n                                    max-w-xs\r\n                                    mx-2\r\n                                    order-1\r\n                                    items-end\r\n                                \"\r\n                            >\r\n                                <div>\r\n                                    <span\r\n                                        class=\"\r\n                                            px-4\r\n                                            py-2\r\n                                            rounded-lg\r\n                                            inline-block\r\n                                            rounded-br-none\r\n                                            bg-blue-600\r\n                                            text-white\r\n                                        \"\r\n                                        >Any updates on this issue? I'm getting\r\n                                        the same error when trying to install\r\n                                        devtools. Thanks</span\r\n                                    >\r\n                                </div>\r\n                            </div>\r\n                            <img\r\n                                src=\"https://images.unsplash.com/photo-1590031905470-a1a1feacbb0b?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=3&amp;w=144&amp;h=144\"\r\n                                alt=\"My profile\"\r\n                                class=\"w-6 h-6 rounded-full order-2\"\r\n                            />\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"chat-message\">\r\n                        <div class=\"flex items-end\">\r\n                            <div\r\n                                class=\"\r\n                                    flex flex-col\r\n                                    space-y-2\r\n                                    text-xs\r\n                                    max-w-xs\r\n                                    mx-2\r\n                                    order-2\r\n                                    items-start\r\n                                \"\r\n                            >\r\n                                <div>\r\n                                    <span\r\n                                        class=\"\r\n                                            px-4\r\n                                            py-2\r\n                                            rounded-lg\r\n                                            inline-block\r\n                                            rounded-bl-none\r\n                                            bg-gray-300\r\n                                            text-gray-600\r\n                                        \"\r\n                                        >Thanks for your message David. I\r\n                                        thought I'm alone with this issue.\r\n                                        Please, 👍 the issue to support it\r\n                                        :)</span\r\n                                    >\r\n                                </div>\r\n                            </div>\r\n                            <img\r\n                                src=\"https://images.unsplash.com/photo-1549078642-b2ba4bda0cdb?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=3&amp;w=144&amp;h=144\"\r\n                                alt=\"My profile\"\r\n                                class=\"w-6 h-6 rounded-full order-1\"\r\n                            />\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"chat-message\">\r\n                        <div class=\"flex items-end justify-end\">\r\n                            <div\r\n                                class=\"\r\n                                    flex flex-col\r\n                                    space-y-2\r\n                                    text-xs\r\n                                    max-w-xs\r\n                                    mx-2\r\n                                    order-1\r\n                                    items-end\r\n                                \"\r\n                            >\r\n                                <div>\r\n                                    <span\r\n                                        class=\"\r\n                                            px-4\r\n                                            py-2\r\n                                            rounded-lg\r\n                                            inline-block\r\n                                            bg-blue-600\r\n                                            text-white\r\n                                        \"\r\n                                        >Are you using sudo?</span\r\n                                    >\r\n                                </div>\r\n                                <div>\r\n                                    <span\r\n                                        class=\"\r\n                                            px-4\r\n                                            py-2\r\n                                            rounded-lg\r\n                                            inline-block\r\n                                            rounded-br-none\r\n                                            bg-blue-600\r\n                                            text-white\r\n                                        \"\r\n                                        >Run this command sudo chown -R `whoami`\r\n                                        /Users/{{\r\n                                            your_user_profile\r\n                                        }}/.npm-global/ then install the package\r\n                                        globally without using sudo</span\r\n                                    >\r\n                                </div>\r\n                            </div>\r\n                            <img\r\n                                src=\"https://images.unsplash.com/photo-1590031905470-a1a1feacbb0b?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=3&amp;w=144&amp;h=144\"\r\n                                alt=\"My profile\"\r\n                                class=\"w-6 h-6 rounded-full order-2\"\r\n                            />\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"chat-message\">\r\n                        <div class=\"flex items-end\">\r\n                            <div\r\n                                class=\"\r\n                                    flex flex-col\r\n                                    space-y-2\r\n                                    text-xs\r\n                                    max-w-xs\r\n                                    mx-2\r\n                                    order-2\r\n                                    items-start\r\n                                \"\r\n                            >\r\n                                <div>\r\n                                    <span\r\n                                        class=\"\r\n                                            px-4\r\n                                            py-2\r\n                                            rounded-lg\r\n                                            inline-block\r\n                                            bg-gray-300\r\n                                            text-gray-600\r\n                                        \"\r\n                                        >It seems like you are from Mac OS\r\n                                        world. There is no /Users/ folder on\r\n                                        linux 😄</span\r\n                                    >\r\n                                </div>\r\n                                <div>\r\n                                    <span\r\n                                        class=\"\r\n                                            px-4\r\n                                            py-2\r\n                                            rounded-lg\r\n                                            inline-block\r\n                                            rounded-bl-none\r\n                                            bg-gray-300\r\n                                            text-gray-600\r\n                                        \"\r\n                                        >I have no issue with any other packages\r\n                                        installed with root permission\r\n                                        globally.</span\r\n                                    >\r\n                                </div>\r\n                            </div>\r\n                            <img\r\n                                src=\"https://images.unsplash.com/photo-1549078642-b2ba4bda0cdb?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=3&amp;w=144&amp;h=144\"\r\n                                alt=\"My profile\"\r\n                                class=\"w-6 h-6 rounded-full order-1\"\r\n                            />\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"chat-message\">\r\n                        <div class=\"flex items-end justify-end\">\r\n                            <div\r\n                                class=\"\r\n                                    flex flex-col\r\n                                    space-y-2\r\n                                    text-xs\r\n                                    max-w-xs\r\n                                    mx-2\r\n                                    order-1\r\n                                    items-end\r\n                                \"\r\n                            >\r\n                                <div>\r\n                                    <span\r\n                                        class=\"\r\n                                            px-4\r\n                                            py-2\r\n                                            rounded-lg\r\n                                            inline-block\r\n                                            rounded-br-none\r\n                                            bg-blue-600\r\n                                            text-white\r\n                                        \"\r\n                                        >yes, I have a mac. I never had issues\r\n                                        with root permission as well, but this\r\n                                        helped me to solve the problem</span\r\n                                    >\r\n                                </div>\r\n                            </div>\r\n                            <img\r\n                                src=\"https://images.unsplash.com/photo-1590031905470-a1a1feacbb0b?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=3&amp;w=144&amp;h=144\"\r\n                                alt=\"My profile\"\r\n                                class=\"w-6 h-6 rounded-full order-2\"\r\n                            />\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"chat-message\">\r\n                        <div class=\"flex items-end\">\r\n                            <div\r\n                                class=\"\r\n                                    flex flex-col\r\n                                    space-y-2\r\n                                    text-xs\r\n                                    max-w-xs\r\n                                    mx-2\r\n                                    order-2\r\n                                    items-start\r\n                                \"\r\n                            >\r\n                                <div>\r\n                                    <span\r\n                                        class=\"\r\n                                            px-4\r\n                                            py-2\r\n                                            rounded-lg\r\n                                            inline-block\r\n                                            bg-gray-300\r\n                                            text-gray-600\r\n                                        \"\r\n                                        >I get the same error on Arch Linux\r\n                                        (also with sudo)</span\r\n                                    >\r\n                                </div>\r\n                                <div>\r\n                                    <span\r\n                                        class=\"\r\n                                            px-4\r\n                                            py-2\r\n                                            rounded-lg\r\n                                            inline-block\r\n                                            bg-gray-300\r\n                                            text-gray-600\r\n                                        \"\r\n                                        >I also have this issue, Here is what I\r\n                                        was doing until now: #1076</span\r\n                                    >\r\n                                </div>\r\n                                <div>\r\n                                    <span\r\n                                        class=\"\r\n                                            px-4\r\n                                            py-2\r\n                                            rounded-lg\r\n                                            inline-block\r\n                                            rounded-bl-none\r\n                                            bg-gray-300\r\n                                            text-gray-600\r\n                                        \"\r\n                                        >even i am facing</span\r\n                                    >\r\n                                </div>\r\n                            </div>\r\n                            <img\r\n                                src=\"https://images.unsplash.com/photo-1549078642-b2ba4bda0cdb?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=3&amp;w=144&amp;h=144\"\r\n                                alt=\"My profile\"\r\n                                class=\"w-6 h-6 rounded-full order-1\"\r\n                            />\r\n                        </div>\r\n                    </div>\r\n                </div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [_hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
         onSubmit: _cache[1] || (_cache[1] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
           return $options.sendmassage();
         }, ["prevent"]))
@@ -26462,9 +26333,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         "class": "w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-12 bg-gray-200 rounded-full py-3"
       }, null, 8
       /* PROPS */
-      , _hoisted_23), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.massage]]), _hoisted_24], 32
+      , _hoisted_8), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.massage]]), _hoisted_9], 32
       /* HYDRATE_EVENTS */
-      ), _hoisted_25])])])])];
+      ), _hoisted_10])])])])];
     }),
     _: 1
     /* STABLE */
@@ -54646,6 +54517,34 @@ const __exports__ = /*#__PURE__*/(0,D_doctor_jetstream_laravel_doctorblog_node_m
 
 /***/ }),
 
+/***/ "./resources/js/Pages/test/adminchat.vue":
+/*!***********************************************!*\
+  !*** ./resources/js/Pages/test/adminchat.vue ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _adminchat_vue_vue_type_template_id_94b1729a__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./adminchat.vue?vue&type=template&id=94b1729a */ "./resources/js/Pages/test/adminchat.vue?vue&type=template&id=94b1729a");
+/* harmony import */ var _adminchat_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./adminchat.vue?vue&type=script&lang=js */ "./resources/js/Pages/test/adminchat.vue?vue&type=script&lang=js");
+/* harmony import */ var D_doctor_jetstream_laravel_doctorblog_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+
+
+
+
+;
+const __exports__ = /*#__PURE__*/(0,D_doctor_jetstream_laravel_doctorblog_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_adminchat_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_adminchat_vue_vue_type_template_id_94b1729a__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Pages/test/adminchat.vue"]])
+/* hot reload */
+if (false) {}
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__exports__);
+
+/***/ }),
+
 /***/ "./resources/js/Pages/test/blogcards.vue":
 /*!***********************************************!*\
   !*** ./resources/js/Pages/test/blogcards.vue ***!
@@ -55445,6 +55344,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_index_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_index_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./index.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/admin/blog/index.vue?vue&type=script&lang=js");
+ 
+
+/***/ }),
+
+/***/ "./resources/js/Pages/test/adminchat.vue?vue&type=script&lang=js":
+/*!***********************************************************************!*\
+  !*** ./resources/js/Pages/test/adminchat.vue?vue&type=script&lang=js ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_adminchat_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_adminchat_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./adminchat.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/test/adminchat.vue?vue&type=script&lang=js");
  
 
 /***/ }),
@@ -56281,6 +56196,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/Pages/test/adminchat.vue?vue&type=template&id=94b1729a":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/Pages/test/adminchat.vue?vue&type=template&id=94b1729a ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_adminchat_vue_vue_type_template_id_94b1729a__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_adminchat_vue_vue_type_template_id_94b1729a__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./adminchat.vue?vue&type=template&id=94b1729a */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/test/adminchat.vue?vue&type=template&id=94b1729a");
+
+
+/***/ }),
+
 /***/ "./resources/js/Pages/test/blogcards.vue?vue&type=template&id=0a499f8d":
 /*!*****************************************************************************!*\
   !*** ./resources/js/Pages/test/blogcards.vue?vue&type=template&id=0a499f8d ***!
@@ -56708,6 +56639,7 @@ var map = {
 	"./admin/blog/create.vue": "./resources/js/Pages/admin/blog/create.vue",
 	"./admin/blog/index.vue": "./resources/js/Pages/admin/blog/index.vue",
 	"./admin/blog/update.vue": "./resources/js/Pages/admin/blog/update.vue",
+	"./test/adminchat.vue": "./resources/js/Pages/test/adminchat.vue",
 	"./test/blogcards.vue": "./resources/js/Pages/test/blogcards.vue",
 	"./test/chat.vue": "./resources/js/Pages/test/chat.vue",
 	"./test/homepage.vue": "./resources/js/Pages/test/homepage.vue",

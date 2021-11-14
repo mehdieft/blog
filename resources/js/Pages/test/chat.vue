@@ -1,8 +1,8 @@
 <template>
     <app-layout title="Dashboard">
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800  leading-tight">
-              چت با دکتر 
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                چت با دکتر
             </h2>
         </template>
 
@@ -145,7 +145,7 @@
                         </button>
                     </div>
                 </div>
-                <div
+                <!-- <div
                     id="messages"
                     class="
                         flex flex-col
@@ -593,7 +593,7 @@
                             />
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="border-t-2 border-gray-200 px-4 pt-4 mb-2 sm:mb-0">
                     <div class="relative flex">
                         <span class="absolute inset-y-0 flex items-center">
@@ -630,24 +630,25 @@
                                 </svg>
                             </button>
                         </span>
-                      <form @submit.prevent="sendmassage()">
-                        <input
-                        v-model="massage"
-                        :value="massage"
-                            type="text"
-                            placeholder="Write Something"
-                            class="
-                                w-full
-                                focus:outline-none focus:placeholder-gray-400
-                                text-gray-600
-                                placeholder-gray-600
-                                pl-12
-                                bg-gray-200
-                                rounded-full
-                                py-3
-                            "
-                        />
-                        <input type="submit" >
+                        <form @submit.prevent="sendmassage()">
+                            <input
+                                v-model="massage"
+                                :value="massage"
+                                type="text"
+                                placeholder="Write Something"
+                                class="
+                                    w-full
+                                    focus:outline-none
+                                    focus:placeholder-gray-400
+                                    text-gray-600
+                                    placeholder-gray-600
+                                    pl-12
+                                    bg-gray-200
+                                    rounded-full
+                                    py-3
+                                "
+                            />
+                            <input type="submit" />
                         </form>
                         <div
                             class="
@@ -762,15 +763,14 @@
                                 </svg>
                             </button>
                             <button
-                           disabled="true"
+                                disabled="true"
                                 type="submit"
-                                class=" 
+                                class="
                                     inline-flex
                                     items-center
                                     justify-center
                                     rounded-full
                                     h-12
-                                    
                                     w-12
                                     transition
                                     duration-500
@@ -822,39 +822,41 @@
 }
 </style>
 <script>
-import  io from 'socket.io-client';
-    import AppLayout from  '../../Layouts/AppLayout.vue'
-    import Welcome from '@/Jetstream/Welcome.vue'
-const socket=io.connect('http://localhost:5000');
+import io from "socket.io-client";
+import AppLayout from "../../Layouts/AppLayout.vue";
+import Welcome from "@/Jetstream/Welcome.vue";
+const socket = io.connect("http://localhost:5000");
 export default {
-
-
+    props:['sender','reciever'],
     data() {
         return {
-       massage:'hello zepp'
-       }
+            massage: "hello zepp",
+        };
     },
-    methods:{
-        sendmassage(){
-           const socket=io.connect('http://localhost:5000');
-           socket.emit('sendmassage',this.massage)
-           this.massage=""
-        console.log("this is fuck",this.socket)
-
-        }
-
-    },
-     
-
-
-
-
-      components: {
-            AppLayout,
-            Welcome,
+    methods: {
+        sendmassage() {
+            const socket = io.connect("http://localhost:5000");
+            socket.emit("sendmassage", {
+                sender:this.sender,
+                reciever:this.reciever,
+                massage:this.massage
+            });
+            this.massage = "";
+            console.log("this is fuck", this.socket);
         },
-    mounted() {
-        openSocket("http://localhost:5000");
     },
+
+    components: {
+        AppLayout,
+        Welcome,
+    },
+    mounted() {
+        },
+    created(){
+        openSocket("http://localhost:5000");
+        console.log("this is sender",this.sender);
+        console.log("this is reciever",this.reciever);
+
+    }
 };
 </script>

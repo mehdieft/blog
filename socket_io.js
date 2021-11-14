@@ -14,8 +14,9 @@
   io.on('connection', (socket)=>{
       // console.log("socket",socket);
       console.log("socket is online now");
-      socket.on('massage',(msg)=>{
+      socket.on('sendmassage',(msg)=>{
         console.log("this is massage--->",msg)
+        console.log("***id**",socket.id,'***');
 
       })
   });

@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-
+use Illuminate\Support\Facades\Auth;
 class mehdiTestController extends Controller
 {
     //
@@ -23,6 +23,23 @@ class mehdiTestController extends Controller
         return Inertia::render('test/homepage');
     }
     public function chat(){
-        return Inertia::render('test/chat');
+        if(Auth::user()->id==1){
+            $users=User::where('id','!=',1)->get();
+            $sender=Auth::user()->email;
+            return Inertia::render('test/adminchat',[
+                'users'=>$users,
+                'sender'=>$sender
+            ]);
+
+        }else{
+
+            $user_email=Auth::user()->email;
+            $reciever=User::select('email')->first();
+            // dd($reciever);
+            return Inertia::render('test/chat',
+            ['sender'=>$user_email,
+            'reciever'=>$reciever['email']
+        ]);
+        }
     }
 }
