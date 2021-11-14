@@ -834,7 +834,6 @@ export default {
        massage:'hgello zepp'
        }
     },
-    props:['sender'],
     methods:{
         sendmassage(){
            const socket=io.connect('http://localhost:5000');
@@ -853,13 +852,8 @@ export default {
             AppLayout,
             Welcome,
         },
-    created() {
-        console.log("this is senderId",this.sender);
+    mounted() {
         openSocket("http://localhost:5000");
-        socket.emit("geiveip");
-        socket.on("ip",(msg)=>{
-            console.log("ipppp----->",msg)
-        })
     },
 };
 </script>

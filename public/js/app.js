@@ -21428,7 +21428,6 @@ var socket = socket_io_client__WEBPACK_IMPORTED_MODULE_0__["default"].connect('h
       massage: 'hgello zepp'
     };
   },
-  props: ['sender'],
   methods: {
     sendmassage: function sendmassage() {
       var socket = socket_io_client__WEBPACK_IMPORTED_MODULE_0__["default"].connect('http://localhost:5000');
@@ -21441,13 +21440,8 @@ var socket = socket_io_client__WEBPACK_IMPORTED_MODULE_0__["default"].connect('h
     AppLayout: _Layouts_AppLayout_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     Welcome: _Jetstream_Welcome_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
-  created: function created() {
-    console.log("this is senderId", this.sender);
+  mounted: function mounted() {
     openSocket("http://localhost:5000");
-    socket.emit("geiveip");
-    socket.on("ip", function (msg) {
-      console.log("ipppp----->", msg);
-    });
   }
 });
 
