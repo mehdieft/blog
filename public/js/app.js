@@ -21425,17 +21425,17 @@ var socket = socket_io_client__WEBPACK_IMPORTED_MODULE_0__["default"].connect('h
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      massage: 'hgello zepp'
+      massage: 'hello zepp'
     };
   },
   methods: {
     sendmassage: function sendmassage() {
       var socket = socket_io_client__WEBPACK_IMPORTED_MODULE_0__["default"].connect('http://localhost:5000');
       socket.emit('sendmassage', this.massage);
+      this.massage = "";
       console.log("this is fuck", this.socket);
     }
   },
-  enable: false,
   components: {
     AppLayout: _Layouts_AppLayout_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     Welcome: _Jetstream_Welcome_vue__WEBPACK_IMPORTED_MODULE_2__["default"]

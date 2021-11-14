@@ -831,23 +831,24 @@ export default {
 
     data() {
         return {
-       massage:'hgello zepp'
+       massage:'hello zepp'
        }
     },
     methods:{
         sendmassage(){
            const socket=io.connect('http://localhost:5000');
            socket.emit('sendmassage',this.massage)
+           this.massage=""
         console.log("this is fuck",this.socket)
 
         }
 
     },
+     
 
 
 
 
-    enable:false,
       components: {
             AppLayout,
             Welcome,
