@@ -14,11 +14,10 @@
   io.on('connection', (socket)=>{
       console.log("socket",socket);
       console.log("socket is online now");
-      socket.on("chat",(payload)=>{
-        console.log("mypayload",payload);
-        io.emit('chat',payload);
-      })
+      socket.on('massage',(msg)=>{
+        console.log("this is massage--->",msg)
 
-  })
+      })
+  });
   //app.listen(5000,()=>{console.log("server is active")})
   server.listen(5000,()=>{console.log("server is work in port 5000");})

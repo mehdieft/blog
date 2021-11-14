@@ -6,7 +6,7 @@ const server=require('http').createServer(app);
 const cors = require('cors');
 const io =require('socket.io')(server,{
   cors: {
-      origin: "http://localhost/test/homepage",
+      origin: "*",
       //this should be the website address
       // methods: ["GET", "POST"]
     }

@@ -630,7 +630,10 @@
                                 </svg>
                             </button>
                         </span>
+                      <form @submit.prevent="sendmassage()">
                         <input
+                        v-model="massage"
+                        :value="massage"
                             type="text"
                             placeholder="Write Something"
                             class="
@@ -644,6 +647,8 @@
                                 py-3
                             "
                         />
+                        <input type="submit" >
+                        </form>
                         <div
                             class="
                                 absolute
@@ -757,13 +762,15 @@
                                 </svg>
                             </button>
                             <button
-                                type="button"
-                                class="
+                           disabled="true"
+                                type="submit"
+                                class=" 
                                     inline-flex
                                     items-center
                                     justify-center
                                     rounded-full
                                     h-12
+                                    
                                     w-12
                                     transition
                                     duration-500
@@ -815,16 +822,38 @@
 }
 </style>
 <script>
-import openSocket from "socket.io-client";
+import  io from 'socket.io-client';
     import AppLayout from  '../../Layouts/AppLayout.vue'
     import Welcome from '@/Jetstream/Welcome.vue'
+const socket=io.connect('http://localhost:5000');
 export default {
+
+
+    data() {
+        return {
+       massage:'hgello zepp'
+       }
+    },
+    methods:{
+        sendmassage(){
+           const socket=io.connect('http://localhost:5000');
+           socket.emit('sendmassage',this.massage)
+        console.log("this is fuck",this.socket)
+
+        }
+
+    },
+
+
+
+
+    enable:false,
       components: {
             AppLayout,
             Welcome,
         },
     mounted() {
-        openSocket("http://localhost:3000");
+        openSocket("http://localhost:5000");
     },
 };
 </script>
