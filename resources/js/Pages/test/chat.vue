@@ -633,7 +633,6 @@
                         <form @submit.prevent="sendmassage()">
                             <input
                                 v-model="massage"
-                                :value="massage"
                                 type="text"
                                 placeholder="Write Something"
                                 class="
@@ -825,24 +824,26 @@
 import io from "socket.io-client";
 import AppLayout from "../../Layouts/AppLayout.vue";
 import Welcome from "@/Jetstream/Welcome.vue";
-const socket = io.connect("http://localhost:5000");
+// const socket = io.connect("http://localhost:5000");
+let socket =null;
+
 export default {
     props:['sender','reciever'],
     data() {
         return {
             massage: "hello zepp",
+            admin:null,
         };
     },
     methods: {
         sendmassage() {
-            const socket = io.connect("http://localhost:5000");
             socket.emit("sendmassage", {
+                reciever:this.admin,
                 sender:this.sender,
-                reciever:this.reciever,
                 massage:this.massage
             });
             this.massage = "";
-            console.log("this is fuck", this.socket);
+            // console.log("this is fuck");
         },
     },
 
@@ -851,12 +852,20 @@ export default {
         Welcome,
     },
     mounted() {
+        socket=io.connect("http://localhost:5000");
+        socket.emit('findme',{
+            email:this.sender
+
+        })
+        socket.on('admin',(admin)=>{
+            console.log("fuck you admin",admin.admin[0])
+            // this.admin=admin
+            this.admin=admin.admin[0];
+            
+            
+        })
         },
     created(){
-        openSocket("http://localhost:5000");
-        console.log("this is sender",this.sender);
-        console.log("this is reciever",this.reciever);
-
     }
 };
 </script>

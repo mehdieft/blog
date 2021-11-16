@@ -21446,37 +21446,45 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Jetstream_Welcome_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Jetstream/Welcome.vue */ "./resources/js/Jetstream/Welcome.vue");
 
 
+ // const socket = io.connect("http://localhost:5000");
 
-var socket = socket_io_client__WEBPACK_IMPORTED_MODULE_0__["default"].connect("http://localhost:5000");
+var socket = null;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['sender', 'reciever'],
   data: function data() {
     return {
-      massage: "hello zepp"
+      massage: "hello zepp",
+      admin: null
     };
   },
   methods: {
     sendmassage: function sendmassage() {
-      var socket = socket_io_client__WEBPACK_IMPORTED_MODULE_0__["default"].connect("http://localhost:5000");
       socket.emit("sendmassage", {
+        reciever: this.admin,
         sender: this.sender,
-        reciever: this.reciever,
         massage: this.massage
       });
-      this.massage = "";
-      console.log("this is fuck", this.socket);
+      this.massage = ""; // console.log("this is fuck");
     }
   },
   components: {
     AppLayout: _Layouts_AppLayout_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     Welcome: _Jetstream_Welcome_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
-  mounted: function mounted() {},
-  created: function created() {
-    openSocket("http://localhost:5000");
-    console.log("this is sender", this.sender);
-    console.log("this is reciever", this.reciever);
-  }
+  mounted: function mounted() {
+    var _this = this;
+
+    socket = socket_io_client__WEBPACK_IMPORTED_MODULE_0__["default"].connect("http://localhost:5000");
+    socket.emit('findme', {
+      email: this.sender
+    });
+    socket.on('admin', function (admin) {
+      console.log("fuck you admin", admin.admin[0]); // this.admin=admin
+
+      _this.admin = admin.admin[0];
+    });
+  },
+  created: function created() {}
 });
 
 /***/ }),
@@ -26325,15 +26333,13 @@ var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 /* HOISTED */
 );
 
-var _hoisted_8 = ["value"];
-
-var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
   type: "submit"
 }, null, -1
 /* HOISTED */
 );
 
-var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "absolute right-0 items-center inset-y-0 hidden sm:flex"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
   type: "button",
@@ -26415,15 +26421,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
           return $data.massage = $event;
         }),
-        value: $data.massage,
         type: "text",
         placeholder: "Write Something",
         "class": "w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-12 bg-gray-200 rounded-full py-3"
-      }, null, 8
-      /* PROPS */
-      , _hoisted_8), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.massage]]), _hoisted_9], 32
+      }, null, 512
+      /* NEED_PATCH */
+      ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.massage]]), _hoisted_8], 32
       /* HYDRATE_EVENTS */
-      ), _hoisted_10])])])])];
+      ), _hoisted_9])])])])];
     }),
     _: 1
     /* STABLE */
