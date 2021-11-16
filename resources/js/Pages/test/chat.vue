@@ -852,15 +852,17 @@ export default {
         Welcome,
     },
     mounted() {
+        console.log("fucking sender",this.sender)
         socket=io.connect("http://localhost:5000");
+        //method for findeing the user and give him socket
         socket.emit('findme',{
             email:this.sender
-
         })
+        //findig the guy(admin) we wanna send massage for him
         socket.on('admin',(admin)=>{
-            console.log("fuck you admin",admin.admin[0])
+            console.log("fuck you admin",admin.user[0])
             // this.admin=admin
-            this.admin=admin.admin[0];
+            this.admin=admin.user[0];
             
             
         })

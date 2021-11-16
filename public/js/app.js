@@ -21474,14 +21474,17 @@ var socket = null;
   mounted: function mounted() {
     var _this = this;
 
-    socket = socket_io_client__WEBPACK_IMPORTED_MODULE_0__["default"].connect("http://localhost:5000");
+    console.log("fucking sender", this.sender);
+    socket = socket_io_client__WEBPACK_IMPORTED_MODULE_0__["default"].connect("http://localhost:5000"); //method for findeing the user and give him socket
+
     socket.emit('findme', {
       email: this.sender
-    });
-    socket.on('admin', function (admin) {
-      console.log("fuck you admin", admin.admin[0]); // this.admin=admin
+    }); //findig the guy(admin) we wanna send massage for him
 
-      _this.admin = admin.admin[0];
+    socket.on('admin', function (admin) {
+      console.log("fuck you admin", admin.user[0]); // this.admin=admin
+
+      _this.admin = admin.user[0];
     });
   },
   created: function created() {}

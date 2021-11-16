@@ -33,7 +33,7 @@ class mehdiTestController extends Controller
 
         }else{
 
-            $user_id=Auth::user()->id;
+            $user_id=Auth::user()->email;
             $reciever=User::select('email')->first();
             // dd($reciever);
             return Inertia::render('test/chat',
