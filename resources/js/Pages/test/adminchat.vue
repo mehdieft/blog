@@ -13,7 +13,10 @@
                         scrolling-touch" style="max-height:400px;">
                     <li v-for="user in userList" :key="user.id" class="flex justify-between items-center bg-white mt-2 p-2 hover:shadow-lg rounded cursor-pointer transition">
                         <div class="flex ml-2">
-                       <button> <Link href="/endpoint" method="post" :data="{ user:user  }">Save</Link></button>
+                      
+                       <!-- <inertia-link :href="'/'" >Home</inertia-link>
+                       <inertia-link :href="'/'" >Home</inertia-link>
+                       <inertia-link :href="'/'" >Home</inertia-link> -->
                
                          <img v-if="user.image !=null" src="https://i.imgur.com/aq39RMA.jpg" width="40" height="40" class="rounded-full">
                          <img v-else src="https://i.imgur.com/aq39RMA.jpg" width="40" height="40" class="rounded-full">
