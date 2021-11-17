@@ -1,86 +1,87 @@
 <template>
-<link rel="stylesheet" href="https://demos.creative-tim.com/notus-js/assets/styles/tailwind.css">
-<link rel="stylesheet" href="https://demos.creative-tim.com/notus-js/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css">
-
-
-<section class="py-1 bg-blueGray-50">
-<div class="w-full xl:w-8/12 mb-12 xl:mb-0 px-4 mx-auto mt-24">
-  <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded ">
-    <div class="rounded-t mb-0 px-4 py-3 border-0">
-      <div class="flex flex-wrap items-center">
-        <div class="relative w-full px-4 max-w-full flex-grow flex-1">
-          <h3 class="font-semibold text-base text-blueGray-700">Page Visits</h3>
+<div class="py-10 h-screen bg-gray-300 px-2">
+    <div class="max-w-md mx-auto bg-gray-100 shadow-lg rounded-lg overflow-hidden md:max-w-lg">
+        <div class="md:flex ">
+            <div class="w-full p-4">
+                <div class="relative"> <input type="text" class="w-full h-12 rounded focus:outline-none px-3 focus:shadow-md" placeholder="Search..."> <i class="fa fa-search absolute right-3 top-4 text-gray-300"></i> </div>
+                <ul class="overflow-y-auto
+                        scrollbar-thumb-blue
+                        scrollbar-thumb-rounded
+                        scrollbar-track-blue-lighter
+                        scrollbar-w-2
+                        scrolling-touch" style="max-height:400px;">
+                    <li v-for="user in userList" :key="user.id" class="flex justify-between items-center bg-white mt-2 p-2 hover:shadow-lg rounded cursor-pointer transition">
+                        <div class="flex ml-2">
+                         <img v-if="user.image !=null" src="https://i.imgur.com/aq39RMA.jpg" width="40" height="40" class="rounded-full">
+                         <img v-else src="https://i.imgur.com/aq39RMA.jpg" width="40" height="40" class="rounded-full">
+                            <div class="flex flex-col ml-2"> <span class="font-medium text-black">{{user.name}}</span>
+                             <span v-if="user.socketID!=null" class="text-sm text-green-400 truncate w-32">online</span> 
+                             <span v-else class="text-sm text-gray-400 truncate w-32">ofline</span>
+                             </div>
+                        </div>
+                        <div class="flex flex-col items-end"> <span v-if="user.socketID!=null" class="text-green-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                         d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                        </svg>
+                        </span> 
+                        <span v-else class="text-grey-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                         d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                        </svg>
+</span>
+                        <i class="fa fa-star text-green-400"></i> 
+                        </div>
+                    </li>
+                    <li class="flex justify-between items-center bg-white mt-2 p-2 hover:shadow-lg rounded cursor-pointer transition">
+                        <div class="flex ml-2"> <img src="https://i.imgur.com/eMaYwXn.jpg" width="40" height="40" class="rounded-full">
+                            <div class="flex flex-col ml-2"> <span class="font-medium text-black">Komeial Bolger</span> <span class="text-sm text-gray-400 truncate w-32">I will send you all documents as soon as possible</span> </div>
+                        </div>
+                        <div class="flex flex-col items-center"> <span class="text-gray-300">12:26</span> <i class="fa fa-star text-green-400"></i> </div>
+                    </li>
+                    <li class="flex justify-between items-center bg-white mt-2 p-2 hover:shadow-lg rounded cursor-pointer transition">
+                        <div class="flex ml-2"> <img src="https://i.imgur.com/zQZSWrt.jpg" width="40" height="40" class="rounded-full">
+                            <div class="flex flex-col ml-2"> <span class="font-medium text-black">Tamaara Suiale</span> <span class="text-sm text-gray-400 truncate w-32">Are you going to business trip next week</span> </div>
+                        </div>
+                        <div class="flex flex-col items-center"> <span class="text-gray-300">8:26</span> <i class="fa fa-star text-green-400"></i> </div>
+                    </li>
+                    <li class="flex justify-between items-center bg-white mt-2 p-2 hover:shadow-lg rounded cursor-pointer transition">
+                        <div class="flex ml-2"> <img src="https://i.imgur.com/agRGhBc.jpg" width="40" height="40" class="rounded-full">
+                            <div class="flex flex-col ml-2"> <span class="font-medium text-black">Sam Nielson</span> <span class="text-sm text-gray-400 truncate w-32">I suggest to start new business soon</span> </div>
+                        </div>
+                        <div class="flex flex-col items-center"> <span class="text-gray-300">7:16</span> <i class="fa fa-star text-green-400"></i> </div>
+                    </li>
+                    <li class="flex justify-between items-center bg-white mt-2 p-2 hover:shadow-lg rounded cursor-pointer transition">
+                        <div class="flex ml-2"> <img src="https://i.imgur.com/uIgDDDd.jpg" width="40" height="40" class="rounded-full">
+                            <div class="flex flex-col ml-2"> <span class="font-medium text-black">Caroline Nexon</span> <span class="text-sm text-gray-400 truncate w-32">We need to start new reseatch center.</span> </div>
+                        </div>
+                        <div class="flex flex-col items-center"> <span class="text-gray-300">9:26</span> <i class="fa fa-star text-green-400"></i> </div>
+                    </li>
+                    <li class="flex justify-between items-center bg-white mt-2 p-2 hover:shadow-lg rounded cursor-pointer transition">
+                        <div class="flex ml-2"> <img src="https://i.imgur.com/tT8rjKC.jpg" width="40" height="40" class="rounded-full">
+                            <div class="flex flex-col ml-2"> <span class="font-medium text-black">Patrick Koeler</span> <span class="text-sm text-gray-400 truncate w-32">May be yes</span> </div>
+                        </div>
+                        <div class="flex flex-col items-center"> <span class="text-gray-300">3:26</span> <i class="fa fa-star text-green-400"></i> </div>
+                    </li>
+                </ul>
+            </div>
         </div>
-        <div class="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
-          <button class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">See all</button>
-        </div>
-      </div>
     </div>
-
-    <div class="block w-full overflow-x-auto">
-      <table class="items-center bg-transparent w-full border-collapse ">
-        <thead>
-          <tr>
-            <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                          Page name
-                        </th>
-          <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                          Visitors
-                        </th>
-           <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                          Unique users
-                        </th>
-          <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                          Bounce rate
-                        </th>
-          </tr>
-        </thead>
-
-        <tbody>
-       
-         
-        
-          <tr v-for="user in users" :key="user.email">
-            <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700">
-              {{user.name}}
-            </th>
-            <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-            {{user.email}}
-            </td>
-            <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-              
-            </td>
-            <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-              <i class="fas fa-arrow-down text-red-500 mr-4"></i>
-              46,53%
-            </td>
-          </tr>
-        </tbody>
-
-      </table>
-    </div>
-  </div>
 </div>
-<footer class="relative pt-8 pb-6 mt-16">
-  <div class="container mx-auto px-4">
-    <div class="flex flex-wrap items-center md:justify-between justify-center">
-      <div class="w-full md:w-6/12 px-4 mx-auto text-center">
-        <div class="text-sm text-blueGray-500 font-semibold py-1">
-          Made with <a href="https://www.creative-tim.com/product/notus-js" class="text-blueGray-500 hover:text-gray-800" target="_blank">Notus JS</a> by <a href="https://www.creative-tim.com" class="text-blueGray-500 hover:text-blueGray-800" target="_blank"> Creative Tim</a>.
-        </div>
-      </div>
-    </div>
-  </div>
-</footer>
-</section>
-
-
 
     
 </template>
 <script>
     import ChatApp from './chat';
+    import io from "socket.io-client";
+    let socket = null;
 export default {
+  data(){
+    return{ 
+      userList:[],
+    }
+  },
 
     props:['users','sender'],
     created(){
@@ -89,7 +90,17 @@ export default {
     },
     components:{
         ChatApp
+    },
+    mounted(){
+      socket = io.connect("http://localhost:5000");
+        socket.emit("findme", {
+            email: this.sender,
+        });
+        socket.on('users',(users)=>{
+          console.log("all users",users);
+          this.userList=users;
+        })
 
-    }
+    },
 }
 </script>

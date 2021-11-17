@@ -28,8 +28,9 @@ class mehdiTestController extends Controller
             $users=User::where('id','!=',1)->get();
             $sender=Auth::user()->email;
             return Inertia::render('test/adminchat',[
-                'users'=>$users,
-                'sender'=>$sender
+            //does admin need anything from here?
+            'sender'=>$sender
+                
             ]);
 
         }else{
