@@ -159,8 +159,12 @@
                         scrolling-touch
                     "
                 >
-                    <div class="chat-message" v-for="massage in massagesList" :key="(massage.id)">
-                        <div class="flex items-end">
+                    <div
+                        class="chat-message"
+                        v-for="massage in massagesList"
+                        :key="massage.id"
+                    >
+                        <div class="flex items-end" v-if="massage.sender == senderid">
                             <div
                                 class="
                                     flex flex-col
@@ -172,7 +176,7 @@
                                     items-start
                                 "
                             >
-                                <div>
+                                <div >
                                     <span
                                         class="
                                             px-4
@@ -183,16 +187,49 @@
                                             bg-gray-300
                                             text-gray-600
                                         "
-                                        >
-                                        {{massage.massage}}
-                                        </span
                                     >
+                                        {{ massage.massage }}
+                                    </span>
                                 </div>
+                               
                             </div>
                             <img
                                 src="https://images.unsplash.com/photo-1549078642-b2ba4bda0cdb?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=3&amp;w=144&amp;h=144"
                                 alt="My profile"
                                 class="w-6 h-6 rounded-full order-1"
+                            />
+                        </div>
+                        <div class="flex items-end justify-end" v-if="massage.reciever == senderid">
+                            <div
+                                class="
+                                    flex flex-col
+                                    space-y-2
+                                    text-xs
+                                    max-w-xs
+                                    mx-2
+                                    order-1
+                                    items-end
+                                "
+                            >
+                                <div>
+                                    <span
+                                        class="
+                                            px-4
+                                            py-2
+                                            rounded-lg
+                                            inline-block
+                                            rounded-br-none
+                                            bg-blue-600
+                                            text-white
+                                        "
+                                        >{{massage.massage}}</span
+                                    >
+                                </div>
+                            </div>
+                            <img
+                                src="https://images.unsplash.com/photo-1590031905470-a1a1feacbb0b?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=3&amp;w=144&amp;h=144"
+                                alt="My profile"
+                                class="w-6 h-6 rounded-full order-2"
                             />
                         </div>
                     </div>
@@ -233,12 +270,6 @@
                             />
                         </div>
                     </div>
-              
-               
-                 
-                  
-                   
-                    
                 </div>
                 <div class="border-t-2 border-gray-200 px-4 pt-4 mb-2 sm:mb-0">
                     <div class="relative flex">
@@ -471,24 +502,29 @@ import io from "socket.io-client";
 import AppLayout from "../../Layouts/AppLayout.vue";
 import Welcome from "@/Jetstream/Welcome.vue";
 // const socket = io.connect("http://localhost:5000");
-let socket =null;
+let socket = null;
 
 export default {
-    props:['sender','reciever','massages'],
+    props: ["sender", "reciever", "massages", "senderid"],
     data() {
         return {
             massage: "hello zepp",
-            admin:null,
-            massagesList:[],
+            admin: null,
+            massagesList: [],
         };
     },
+    // watch:{massagesList},
     methods: {
         sendmassage() {
             socket.emit("sendmassage", {
-                reciever:this.admin,
-                sender:this.sender,
-                massage:this.massage
+                reciever: this.admin,
+                sender: this.sender,
+                massage: this.massage,
             });
+                socket.on('get',(msg)=>{
+                    console.log("massage",msg[0]);
+                    this.massagesList.push(msg[0]);
+                })
             this.massage = "";
             // console.log("this is fuck");
         },
@@ -499,23 +535,23 @@ export default {
         Welcome,
     },
     mounted() {
-        console.log("fucking sender",this.sender)
-        console.log("this is massages",this.massages);
-        socket=io.connect("http://localhost:5000");
+        console.log("fucking sender", this.sender);
+        console.log("this is massages", this.massages);
+        this.massagesList = this.massages;
+        console.log("mylist", this.massagesList);
+
+        socket = io.connect("http://localhost:5000");
         //method for findeing the user and give him socket
-        socket.emit('findme',{
-            email:this.sender
-        })
+        socket.emit("findme", {
+            email: this.sender,
+        });
         //findig the guy(admin) we wanna send massage for him
-        socket.on('admin',(admin)=>{
-            console.log("fuck you admin",admin.user[0])
+        socket.on("admin", (admin) => {
+            console.log("fuck you admin", admin.user[0]);
             // this.admin=admin
-            this.admin=admin.user[0];
-            
-            
-        })
-        },
-    created(){
-    }
+            this.admin = admin.user[0];
+        });
+    },
+    created() {},
 };
 </script>

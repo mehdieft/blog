@@ -67,9 +67,18 @@ io.on("connection", (socket) => {
                     "' ,'" +
                     msg.massage +
                     "','"+datetime+"')",
-                function (err, res) {
+                function (err, res,fields) {
                     if (err) console.log("errrr------------>", err);
-                    console.log(res);
+                    console.log('res--',res);
+                    //get last database
+                    con.query("SELECT * FROM chats WHERE id ='"+res.insertId+"' ",function(err,res){
+                      console.log("res data",res)
+                      if(res){
+                        socket.emit("get",res)
+                      }
+
+                    })
+                    console.log('fields',fields)
                 }
             );
         }else{

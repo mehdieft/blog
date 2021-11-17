@@ -41,8 +41,8 @@ class mehdiTestController extends Controller
             return Inertia::render('test/chat',
             ['sender'=>$user_id,
             'reciever'=>$reciever['email'],
+            'senderid'=>Auth::user()->id,
             'massages'=>$massage->map(function($msg){
-                dd($msg);
                 return [
                 'id'=>$msg->id,
                 'sender'=>$msg->sender,

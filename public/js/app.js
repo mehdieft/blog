@@ -21450,7 +21450,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var socket = null;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['sender', 'reciever', 'massages'],
+  props: ["sender", "reciever", "massages", "senderid"],
   data: function data() {
     return {
       massage: "hello zepp",
@@ -21458,12 +21458,20 @@ var socket = null;
       massagesList: []
     };
   },
+  // watch:{massagesList},
   methods: {
     sendmassage: function sendmassage() {
+      var _this = this;
+
       socket.emit("sendmassage", {
         reciever: this.admin,
         sender: this.sender,
         massage: this.massage
+      });
+      socket.on('get', function (msg) {
+        console.log("massage", msg[0]);
+
+        _this.massagesList.push(msg[0]);
       });
       this.massage = ""; // console.log("this is fuck");
     }
@@ -21473,20 +21481,22 @@ var socket = null;
     Welcome: _Jetstream_Welcome_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   mounted: function mounted() {
-    var _this = this;
+    var _this2 = this;
 
     console.log("fucking sender", this.sender);
     console.log("this is massages", this.massages);
+    this.massagesList = this.massages;
+    console.log("mylist", this.massagesList);
     socket = socket_io_client__WEBPACK_IMPORTED_MODULE_0__["default"].connect("http://localhost:5000"); //method for findeing the user and give him socket
 
-    socket.emit('findme', {
+    socket.emit("findme", {
       email: this.sender
     }); //findig the guy(admin) we wanna send massage for him
 
-    socket.on('admin', function (admin) {
+    socket.on("admin", function (admin) {
       console.log("fuck you admin", admin.user[0]); // this.admin=admin
 
-      _this.admin = admin.user[0];
+      _this2.admin = admin.user[0];
     });
   },
   created: function created() {}
@@ -26316,6 +26326,7 @@ var _hoisted_5 = {
   "class": "flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch"
 };
 var _hoisted_6 = {
+  key: 0,
   "class": "flex items-end"
 };
 var _hoisted_7 = {
@@ -26333,7 +26344,26 @@ var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 /* HOISTED */
 );
 
-var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_10 = {
+  key: 1,
+  "class": "flex items-end justify-end"
+};
+var _hoisted_11 = {
+  "class": "flex flex-col space-y-2 text-xs max-w-xs mx-2 order-1 items-end"
+};
+var _hoisted_12 = {
+  "class": "px-4 py-2 rounded-lg inline-block rounded-br-none bg-blue-600 text-white"
+};
+
+var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+  src: "https://images.unsplash.com/photo-1590031905470-a1a1feacbb0b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=144&h=144",
+  alt: "My profile",
+  "class": "w-6 h-6 rounded-full order-2"
+}, null, -1
+/* HOISTED */
+);
+
+var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "chat-message"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "flex items-end justify-end"
@@ -26349,14 +26379,14 @@ var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 /* HOISTED */
 );
 
-var _hoisted_11 = {
+var _hoisted_15 = {
   "class": "border-t-2 border-gray-200 px-4 pt-4 mb-2 sm:mb-0"
 };
-var _hoisted_12 = {
+var _hoisted_16 = {
   "class": "relative flex"
 };
 
-var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
   "class": "absolute inset-y-0 flex items-center"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
   type: "button",
@@ -26376,13 +26406,13 @@ var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 /* HOISTED */
 );
 
-var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
   type: "submit"
 }, null, -1
 /* HOISTED */
 );
 
-var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_19 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "absolute right-0 items-center inset-y-0 hidden sm:flex"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
   type: "button",
@@ -26460,12 +26490,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
           "class": "chat-message",
           key: massage.id
-        }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(massage.massage), 1
+        }, [massage.sender == $props.senderid ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(massage.massage), 1
         /* TEXT */
-        )])]), _hoisted_9])]);
+        )])]), _hoisted_9])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), massage.reciever == $props.senderid ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(massage.massage), 1
+        /* TEXT */
+        )])]), _hoisted_13])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]);
       }), 128
       /* KEYED_FRAGMENT */
-      )), _hoisted_10]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [_hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
+      )), _hoisted_14]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [_hoisted_17, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
         onSubmit: _cache[1] || (_cache[1] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
           return $options.sendmassage();
         }, ["prevent"]))
@@ -26478,9 +26510,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         "class": "w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-12 bg-gray-200 rounded-full py-3"
       }, null, 512
       /* NEED_PATCH */
-      ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.massage]]), _hoisted_14], 32
+      ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.massage]]), _hoisted_18], 32
       /* HYDRATE_EVENTS */
-      ), _hoisted_15])])])])];
+      ), _hoisted_19])])])])];
     }),
     _: 1
     /* STABLE */
