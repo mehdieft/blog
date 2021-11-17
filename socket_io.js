@@ -1,4 +1,5 @@
 const app = require("express")();
+const MOMENT = require('moment');
 const server = require("http").createServer(app);
 var usersData = [];
 const io = require("socket.io")(server, {
@@ -53,22 +54,31 @@ io.on("connection", (socket) => {
     });
     console.log("socket is online now");
     socket.on("sendmassage", (msg) => {
+      let datetime = MOMENT().format( 'YYYY-MM-DD  HH:mm:ss.000' );
         sender = usersData.find((o) => o.email == msg.sender);
-        
-        console.log("re reciever-----?>?",reciever);
-        //now we have to check that 
-        console.log("sender",)
-        
-        console.log("this is massage--->", msg);
-        var sql = "INSERT INTO chats(sender, reciever, massage) VALUES ?";
-        var values = [sender.id, msg.reciever.id, msg.massage];
-        console.log("valueeeeeee", values);
-       
+        //now we have to check that
+        if (msg.reciever.socketID == null) {
+            console.log("this is massage--->", msg);
+            con.query(
+                "INSERT INTO chats (sender, reciever, massage,created_at) VALUES ('" +
+                    sender.id +
+                    "', '" +
+                    msg.reciever.id +
+                    "' ,'" +
+                    msg.massage +
+                    "','"+datetime+"')",
+                function (err, res) {
+                    if (err) console.log("errrr------------>", err);
+                    console.log(res);
+                }
+            );
+        }else{
+
+        }
 
         //****************  this is the part of storing massages and push it back if the user is online */
     });
 });
-//app.listen(5000,()=>{console.log("server is active")})
 
 server.listen(5000, () => {
     console.log("server is work in port 5000");

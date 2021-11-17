@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Test;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Chat;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
@@ -34,11 +35,23 @@ class mehdiTestController extends Controller
         }else{
 
             $user_id=Auth::user()->email;
+            $massage=Chat::where('sender',Auth::user()->id)->orwhere('reciever',Auth::user()->id)->get();
             $reciever=User::select('email')->first();
             // dd($reciever);
             return Inertia::render('test/chat',
             ['sender'=>$user_id,
-            'reciever'=>$reciever['email']
+            'reciever'=>$reciever['email'],
+            'massages'=>$massage->map(function($msg){
+                dd($msg);
+                return [
+                'id'=>$msg->id,
+                'sender'=>$msg->sender,
+                'reciever'=>$msg->reciever,
+                'massage'=>$msg->massage,
+                'created_at'=>$msg->created_at
+                ];
+
+            })
         ]);
         }
     }
