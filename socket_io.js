@@ -58,7 +58,7 @@ io.on("connection", (socket) => {
         sender = usersData.find((o) => o.email == msg.sender);
         //now we have to check that
         if (msg.reciever.socketID == null) {
-            console.log("this is massage--->", msg);
+            // console.log("this is massage--->", msg);
             con.query(
                 "INSERT INTO chats (sender, reciever, massage,created_at) VALUES ('" +
                     sender.id +
@@ -69,16 +69,17 @@ io.on("connection", (socket) => {
                     "','"+datetime+"')",
                 function (err, res,fields) {
                     if (err) console.log("errrr------------>", err);
-                    console.log('res--',res);
+                    // console.log('res--',res);
                     //get last database
                     con.query("SELECT * FROM chats WHERE id ='"+res.insertId+"' ",function(err,res){
                       console.log("res data",res)
                       if(res){
+                        console.log("*************************")
                         socket.emit("get",res)
                       }
 
                     })
-                    console.log('fields',fields)
+                   
                 }
             );
         }else{

@@ -521,9 +521,20 @@ export default {
                 sender: this.sender,
                 massage: this.massage,
             });
-                socket.on('get',(msg)=>{
-                    console.log("massage",msg[0]);
-                    this.massagesList.push(msg[0]);
+                socket.off('get').on('get',(msg)=>{
+                    console.log("massage-------",msg[0]);
+                     let duplicateMassage=this.massagesList.find((o)=>{
+                         o.id==msg[0].id;
+                         console.log("find",duplicateMassage)
+                    });
+                    if(duplicateMassage==undefined){
+                        this.massagesList.push(msg[0])
+                    }else{
+                        console.log("fucker")
+                    }
+                   
+
+                   
                 })
             this.massage = "";
             // console.log("this is fuck");

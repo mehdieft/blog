@@ -21468,10 +21468,19 @@ var socket = null;
         sender: this.sender,
         massage: this.massage
       });
-      socket.on('get', function (msg) {
-        console.log("massage", msg[0]);
+      socket.off('get').on('get', function (msg) {
+        console.log("massage-------", msg[0]);
 
-        _this.massagesList.push(msg[0]);
+        var duplicateMassage = _this.massagesList.find(function (o) {
+          o.id == msg[0].id;
+          console.log("find", duplicateMassage);
+        });
+
+        if (duplicateMassage == undefined) {
+          _this.massagesList.push(msg[0]);
+        } else {
+          console.log("fucker");
+        }
       });
       this.massage = ""; // console.log("this is fuck");
     }
