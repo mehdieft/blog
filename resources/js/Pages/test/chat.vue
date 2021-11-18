@@ -147,6 +147,8 @@
                 </div>
                 <div
                     id="messages"
+                    ref="chat"
+
                     class="
                         flex flex-col
                         space-y-4
@@ -549,6 +551,7 @@ export default {
     },
     created(){
   document.body.scrollTop = document.body.scrollHeight;
+  this.$refs.chat.scrollIntoView();
     },
     mounted() {
         console.log("fucking sender", this.sender);
