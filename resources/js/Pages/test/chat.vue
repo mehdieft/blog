@@ -336,7 +336,9 @@
                                 sm:flex
                             "
                         >
+                        <input type="file" ref="file" style="display: none">
                             <button
+                            @click="$refs.file.click()"
                                 type="button"
                                 class="
                                     inline-flex
@@ -544,6 +546,9 @@ export default {
     components: {
         AppLayout,
         Welcome,
+    },
+    created(){
+  document.body.scrollTop = document.body.scrollHeight;
     },
     mounted() {
         console.log("fucking sender", this.sender);
