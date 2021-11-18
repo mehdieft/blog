@@ -1,6 +1,7 @@
 const app = require("express")();
 const MOMENT = require("moment");
 const server = require("http").createServer(app);
+var fs = require('fs'); 
 var usersData = [];
 const io = require("socket.io")(server, {
     cors: {
@@ -48,7 +49,10 @@ io.on("connection", (socket) => {
         if(obj.email=="mehdi@gmail.com"){
           users=usersData.filter((o)=>o.email !='mehdi@gmail.com')
           console.log('all users----for admin',users);
-          socket.emit('users',users)
+          socket.emit('users',users);
+          socket.on('sendmassage',(msg)=>{
+              console.log("this is admin sending data");
+          })
           //we have admin
 
         }else{
@@ -95,6 +99,10 @@ io.on("connection", (socket) => {
       
               //****************  this is the part of storing massages and push it back if the user is online */
           });
+        //   ss(socket).on('profile-image', function(stream, data) {
+        //     var filename = path.basename(data.name);
+        //     stream.pipe(fs.createWriteStream(filename));
+        //   });
         }
         //this is for fucking admin
         // users=usersData.filter(o => o.email !=callback.email)

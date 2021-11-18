@@ -235,43 +235,7 @@
                             />
                         </div>
                     </div>
-                    <div class="chat-message">
-                        <div class="flex items-end justify-end">
-                            <div
-                                class="
-                                    flex flex-col
-                                    space-y-2
-                                    text-xs
-                                    max-w-xs
-                                    mx-2
-                                    order-1
-                                    items-end
-                                "
-                            >
-                                <div>
-                                    <span
-                                        class="
-                                            px-4
-                                            py-2
-                                            rounded-lg
-                                            inline-block
-                                            rounded-br-none
-                                            bg-blue-600
-                                            text-white
-                                        "
-                                        >Your error message says permission
-                                        denied, npm global installs must be
-                                        given root privileges.</span
-                                    >
-                                </div>
-                            </div>
-                            <img
-                                src="https://images.unsplash.com/photo-1590031905470-a1a1feacbb0b?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=3&amp;w=144&amp;h=144"
-                                alt="My profile"
-                                class="w-6 h-6 rounded-full order-2"
-                            />
-                        </div>
-                    </div>
+                   
                 </div>
                 <div class="border-t-2 border-gray-200 px-4 pt-4 mb-2 sm:mb-0">
                     <div class="relative flex">
@@ -338,7 +302,7 @@
                                 sm:flex
                             "
                         >
-                        <input type="file" ref="file" style="display: none">
+                        <input type="file" multiple ref="file" @change="previewFiles" style="display: none">
                             <button
                             @click="$refs.file.click()"
                                 type="button"
@@ -505,7 +469,6 @@
 import io from "socket.io-client";
 import AppLayout from "../../Layouts/AppLayout.vue";
 import Welcome from "@/Jetstream/Welcome.vue";
-// const socket = io.connect("http://localhost:5000");
 let socket = null;
 
 export default {
@@ -543,6 +506,12 @@ export default {
             this.massage = "";
             // console.log("this is fuck");
         },
+
+
+
+         previewFiles(event) {
+      console.log('********',event.target.files);
+   }
     },
 
     components: {
@@ -558,7 +527,7 @@ export default {
         console.log("this is massages", this.massages);
         this.massagesList = this.massages;
         console.log("mylist", this.massagesList);
-
+      
         socket = io.connect("http://localhost:5000");
         //method for findeing the user and give him socket
         socket.emit("findme", {

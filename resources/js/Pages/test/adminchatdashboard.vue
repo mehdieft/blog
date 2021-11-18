@@ -25,12 +25,13 @@
                              <span v-else class="text-sm text-gray-400 truncate w-32">ofline</span>
                              </div>
                         </div>
-                        <div class="flex flex-col items-end"> <span v-if="user.socketID!=null" class="text-green-300">
+                        <div class="flex flex-col items-end"><inertia-link href="/test/admin/chatwithuser" v-if="user.socketID!=null" method="post" :data="{id:user.id,soxketId:user.socketID}"><span  class="text-green-300">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                          d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                         </svg>
                         </span> 
+                        </inertia-link> 
                         <span v-else class="text-grey-300">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

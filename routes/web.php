@@ -43,6 +43,7 @@ Route::middleware(['auth:sanctum','verified'])->prefix('test')->group(function()
     Route::get('/index',[mehdiTestController::class,'index'])->name('mehdiindex');
     Route::get('/homepage',[mehdiTestController::class,'homepage'])->name("homepage");
     Route::get('/chat',[mehdiTestController::class,'chat'])->name("chat");
+    Route::post('/admin/chatwithuser',[mehdiTestController::class,'adminchatwithuser'])->name('adminchatwithuser');
 });
 
 

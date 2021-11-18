@@ -27,7 +27,7 @@ class mehdiTestController extends Controller
         if(Auth::user()->id==1){
             $users=User::where('id','!=',1)->get();
             $sender=Auth::user()->email;
-            return Inertia::render('test/adminchat',[
+            return Inertia::render('test/adminchatdashboard',[
             //does admin need anything from here?
             'sender'=>$sender
                 
@@ -49,11 +49,33 @@ class mehdiTestController extends Controller
                 'sender'=>$msg->sender,
                 'reciever'=>$msg->reciever,
                 'massage'=>$msg->massage,
+                'image'=>$msg->image,
                 'created_at'=>$msg->created_at
                 ];
 
             })
         ]);
         }
+    }
+    public function adminchatwithuser(Request $request){
+        $massages=Chat::where('sender',$request->id)->orwhere('reciever',$request->id)->get();
+        $reciever=User::where('id',$request->id)->select('email');
+        $admin=Auth::user();
+        $user=User::where('id',$request->id)->get();
+        return Inertia::render('test/adminsinglechat',[
+            'sender'=>Auth::user()->email,
+            'senderid'=>Auth::user()->id,
+            'reciever'=>$reciever,
+            'massages'=>$massages->map(function($msg){
+                return[
+                    'id'=>$msg->id,
+                    'sender'=>$msg->sender,
+                    'reciever'=>$msg->reciever,
+                    'massage'=>$msg->massage,
+                    'image'=>$msg->image,
+                    'created_at'=>$msg->created_at
+                ];
+            })
+        ]);
     }
 }
