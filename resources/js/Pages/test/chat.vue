@@ -148,7 +148,6 @@
                 <div
                     id="messages"
                     ref="chat"
-
                     class="
                         flex flex-col
                         space-y-4
@@ -166,7 +165,10 @@
                         v-for="massage in massagesList"
                         :key="massage.id"
                     >
-                        <div class="flex items-end" v-if="massage.sender == senderid">
+                        <div
+                            class="flex items-end"
+                            v-if="massage.sender == senderid"
+                        >
                             <div
                                 class="
                                     flex flex-col
@@ -178,7 +180,7 @@
                                     items-start
                                 "
                             >
-                                <div >
+                                <div>
                                     <span
                                         class="
                                             px-4
@@ -193,7 +195,6 @@
                                         {{ massage.massage }}
                                     </span>
                                 </div>
-                               
                             </div>
                             <img
                                 src="https://images.unsplash.com/photo-1549078642-b2ba4bda0cdb?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=3&amp;w=144&amp;h=144"
@@ -201,7 +202,10 @@
                                 class="w-6 h-6 rounded-full order-1"
                             />
                         </div>
-                        <div class="flex items-end justify-end" v-if="massage.reciever == senderid">
+                        <div
+                            class="flex items-end justify-end"
+                            v-if="massage.reciever == senderid"
+                        >
                             <div
                                 class="
                                     flex flex-col
@@ -224,7 +228,7 @@
                                             bg-blue-600
                                             text-white
                                         "
-                                        >{{massage.massage}}</span
+                                        >{{ massage.massage }}</span
                                     >
                                 </div>
                             </div>
@@ -235,7 +239,6 @@
                             />
                         </div>
                     </div>
-                   
                 </div>
                 <div class="border-t-2 border-gray-200 px-4 pt-4 mb-2 sm:mb-0">
                     <div class="relative flex">
@@ -302,9 +305,15 @@
                                 sm:flex
                             "
                         >
-                        <input type="file" multiple ref="file" @change="previewFiles" style="display: none">
+                            <input
+                                type="file"
+                                multiple
+                                ref="file"
+                                @change="previewFiles"
+                                style="display: none"
+                            />
                             <button
-                            @click="$refs.file.click()"
+                                @click="$refs.file.click()"
                                 type="button"
                                 class="
                                     inline-flex
@@ -488,47 +497,54 @@ export default {
                 sender: this.sender,
                 massage: this.massage,
             });
-                socket.off('get').on('get',(msg)=>{
-                    console.log("massage-------",msg[0]);
-                     let duplicateMassage=this.massagesList.find((o)=>{
-                         o.id==msg[0].id;
-                         console.log("find",duplicateMassage)
-                    });
-                    if(duplicateMassage==undefined){
-                        this.massagesList.push(msg[0])
-                    }else{
-                        console.log("fucker")
-                    }
-                   
-
-                   
-                })
+            socket.off("get").on("get", (msg) => {
+                console.log("massage-------", msg[0]);
+                let duplicateMassage = this.massagesList.find((o) => {
+                    o.id == msg[0].id;
+                    console.log("find", duplicateMassage);
+                });
+                if (duplicateMassage == undefined) {
+                    this.massagesList.push(msg[0]);
+                } else {
+                    console.log("fucker");
+                }
+            });
             this.massage = "";
             // console.log("this is fuck");
         },
 
-
-
-         previewFiles(event) {
-      console.log('********',event.target.files);
-   }
+        previewFiles(event) {
+            console.log("********", event.target.files);
+        },
     },
 
     components: {
         AppLayout,
         Welcome,
     },
-    created(){
-  document.body.scrollTop = document.body.scrollHeight;
-  this.$refs.chat.scrollIntoView();
+    created() {
+        document.body.scrollTop = document.body.scrollHeight;
+        this.$refs.chat.scrollIntoView();
     },
     mounted() {
         console.log("fucking sender", this.sender);
         console.log("this is massages", this.massages);
         this.massagesList = this.massages;
         console.log("mylist", this.massagesList);
-      
+
         socket = io.connect("http://localhost:5000");
+            socket.off("get").on("get", (msg) => {
+                console.log("massage-------", msg[0]);
+                let duplicateMassage = this.massagesList.find((o) => {
+                    o.id == msg[0].id;
+                    console.log("find", duplicateMassage);
+                });
+                if (duplicateMassage == undefined) {
+                    this.massagesList.push(msg[0]);
+                } else {
+                    console.log("fucker");
+                }
+            });
         //method for findeing the user and give him socket
         socket.emit("findme", {
             email: this.sender,

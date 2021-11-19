@@ -21459,20 +21459,65 @@ __webpack_require__.r(__webpack_exports__);
 
 var socket = null;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ["massages", "admin", "senderUser", "senderid"],
   data: function data() {
     return {
       massage: "hello zepp",
-      admin: null,
       massagesList: [],
-      user: ''
+      user: ""
     };
   },
   mounted: function mounted() {
+    var _this = this;
+
     this.massagesList = this.massages;
-    console.log("dasdgaksjdh", this.massagesList);
-    console.log("sender user", this.senderUser);
+    console.log("adminnnnnnnnnnnnn emaillll", this.admin);
     this.user = this.senderUser;
-    console.log("this is userrrrr-------------->", this.user);
+    socket = socket_io_client__WEBPACK_IMPORTED_MODULE_0__["default"].connect("http://localhost:5000");
+    socket.off("private-massage").on("private-massage", function (msg) {
+      console.log("massage-------", msg[0]);
+
+      var duplicateMassage = _this.massagesList.find(function (o) {
+        o.id == msg[0].id;
+        console.log("find", duplicateMassage);
+      });
+
+      if (duplicateMassage == undefined) {
+        _this.massagesList.push(msg[0]);
+      } else {
+        console.log("fucker");
+      }
+    }); //method for findeing the user and give him socket
+
+    socket.emit("findme", {
+      email: this.admin
+    });
+  },
+  methods: {
+    sendmassage: function sendmassage() {
+      var _this2 = this;
+
+      socket.emit("adminmassage", {
+        sender: this.senderid,
+        reciever: this.user.id,
+        massage: this.massage
+      });
+      socket.off("get").on("get", function (msg) {
+        console.log("massage-------", msg[0]);
+
+        var duplicateMassage = _this2.massagesList.find(function (o) {
+          o.id == msg[0].id;
+          console.log("find", duplicateMassage);
+        });
+
+        if (duplicateMassage == undefined) {
+          _this2.massagesList.push(msg[0]);
+        } else {
+          console.log("fucker");
+        }
+      });
+      this.massage = "";
+    }
   },
   components: {
     AppLayout: _Layouts_AppLayout_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -21480,8 +21525,7 @@ var socket = null;
   },
   created: function created() {
     console.log("dasdasd");
-  },
-  props: ['massages', 'admin', 'senderUser', 'senderid']
+  }
 });
 
 /***/ }),
@@ -21542,7 +21586,7 @@ var socket = null;
         sender: this.sender,
         massage: this.massage
       });
-      socket.off('get').on('get', function (msg) {
+      socket.off("get").on("get", function (msg) {
         console.log("massage-------", msg[0]);
 
         var duplicateMassage = _this.massagesList.find(function (o) {
@@ -21559,7 +21603,7 @@ var socket = null;
       this.massage = ""; // console.log("this is fuck");
     },
     previewFiles: function previewFiles(event) {
-      console.log('********', event.target.files);
+      console.log("********", event.target.files);
     }
   },
   components: {
@@ -21577,7 +21621,21 @@ var socket = null;
     console.log("this is massages", this.massages);
     this.massagesList = this.massages;
     console.log("mylist", this.massagesList);
-    socket = socket_io_client__WEBPACK_IMPORTED_MODULE_0__["default"].connect("http://localhost:5000"); //method for findeing the user and give him socket
+    socket = socket_io_client__WEBPACK_IMPORTED_MODULE_0__["default"].connect("http://localhost:5000");
+    socket.off("get").on("get", function (msg) {
+      console.log("massage-------", msg[0]);
+
+      var duplicateMassage = _this2.massagesList.find(function (o) {
+        o.id == msg[0].id;
+        console.log("find", duplicateMassage);
+      });
+
+      if (duplicateMassage == undefined) {
+        _this2.massagesList.push(msg[0]);
+      } else {
+        console.log("fucker");
+      }
+    }); //method for findeing the user and give him socket
 
     socket.emit("findme", {
       email: this.sender
@@ -26634,7 +26692,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       /* NEED_PATCH */
       ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_22, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_23, [_hoisted_24, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
         onSubmit: _cache[1] || (_cache[1] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
-          return _ctx.sendmassage();
+          return $options.sendmassage();
         }, ["prevent"]))
       }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
         "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {

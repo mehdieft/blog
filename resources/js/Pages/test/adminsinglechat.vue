@@ -1,9 +1,7 @@
 <template>
- <app-layout title="Dashboard">
+    <app-layout title="Dashboard">
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-               
-            </h2>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight"></h2>
         </template>
 
         <div class="py-12">
@@ -27,9 +25,9 @@
                         />
                         <div class="flex flex-col leading-tight">
                             <div class="text-2xl mt-1 flex items-center">
-                                <span class="text-gray-700 mr-3"
-                                    >{{user.name}}</span
-                                >
+                                <span class="text-gray-700 mr-3">{{
+                                    user.name
+                                }}</span>
                                 <span class="text-green-500">
                                     <svg width="10" height="10">
                                         <circle
@@ -41,9 +39,7 @@
                                     </svg>
                                 </span>
                             </div>
-                            <span class="text-lg text-gray-600"
-                                >آنلاین</span
-                            >
+                            <span class="text-lg text-gray-600">آنلاین</span>
                         </div>
                     </div>
                     <div class="flex items-center space-x-2">
@@ -148,7 +144,6 @@
                 <div
                     id="messages"
                     ref="chat"
-
                     class="
                         flex flex-col
                         space-y-4
@@ -166,7 +161,10 @@
                         v-for="massage in massagesList"
                         :key="massage.id"
                     >
-                        <div class="flex items-end" v-if="massage.sender == senderid">
+                        <div
+                            class="flex items-end"
+                            v-if="massage.sender == senderid"
+                        >
                             <div
                                 class="
                                     flex flex-col
@@ -178,7 +176,7 @@
                                     items-start
                                 "
                             >
-                                <div >
+                                <div>
                                     <span
                                         class="
                                             px-4
@@ -193,7 +191,6 @@
                                         {{ massage.massage }}
                                     </span>
                                 </div>
-                               
                             </div>
                             <img
                                 src="https://images.unsplash.com/photo-1549078642-b2ba4bda0cdb?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=3&amp;w=144&amp;h=144"
@@ -201,7 +198,10 @@
                                 class="w-6 h-6 rounded-full order-1"
                             />
                         </div>
-                        <div class="flex items-end justify-end" v-if="massage.reciever == senderid">
+                        <div
+                            class="flex items-end justify-end"
+                            v-if="massage.reciever == senderid"
+                        >
                             <div
                                 class="
                                     flex flex-col
@@ -224,7 +224,7 @@
                                             bg-blue-600
                                             text-white
                                         "
-                                        >{{massage.massage}}</span
+                                        >{{ massage.massage }}</span
                                     >
                                 </div>
                             </div>
@@ -235,7 +235,6 @@
                             />
                         </div>
                     </div>
-                   
                 </div>
                 <div class="border-t-2 border-gray-200 px-4 pt-4 mb-2 sm:mb-0">
                     <div class="relative flex">
@@ -302,9 +301,15 @@
                                 sm:flex
                             "
                         >
-                        <input type="file" multiple ref="file" @change="previewFiles" style="display: none">
+                            <input
+                                type="file"
+                                multiple
+                                ref="file"
+                                @change="previewFiles"
+                                style="display: none"
+                            />
                             <button
-                            @click="$refs.file.click()"
+                                @click="$refs.file.click()"
                                 type="button"
                                 class="
                                     inline-flex
@@ -442,8 +447,6 @@
             </div>
         </div>
     </app-layout>
-
- 
 </template>
 <style>
 .scrollbar-w-2::-webkit-scrollbar {
@@ -468,40 +471,73 @@
 }
 </style>
 
-        
-    
-
 <script>
 import io from "socket.io-client";
 import AppLayout from "../../Layouts/AppLayout.vue";
 import Welcome from "@/Jetstream/Welcome.vue";
 let socket = null;
 export default {
-
+    props: ["massages", "admin", "senderUser", "senderid"],
     data() {
         return {
             massage: "hello zepp",
-            admin: null,
             massagesList: [],
-            user:'',
+            user: "",
         };
     },
-    mounted(){
-         this.massagesList = this.massages;
-         console.log("dasdgaksjdh",this.massagesList)
-         console.log("sender user",this.senderUser)
-         this.user=this.senderUser
-         console.log("this is userrrrr-------------->",this.user);
+    mounted() {
+        this.massagesList = this.massages;
+        console.log("adminnnnnnnnnnnnn emaillll", this.admin);
 
+        this.user = this.senderUser;
+        socket = io.connect("http://localhost:5000");
+            socket.off("private-massage").on("private-massage", (msg) => {
+                console.log("massage-------", msg[0]);
+                let duplicateMassage = this.massagesList.find((o) => {
+                    o.id == msg[0].id;
+                    console.log("find", duplicateMassage);
+                });
+                if (duplicateMassage == undefined) {
+                    this.massagesList.push(msg[0]);
+                } else {
+                    console.log("fucker");
+                }
+            });
+        //method for findeing the user and give him socket
+        socket.emit("findme", {
+            email: this.admin,
+        });
     },
-     components: {
+    methods: {
+        sendmassage() {
+            socket.emit("adminmassage", {
+                sender: this.senderid,
+                reciever: this.user.id,
+                massage: this.massage,
+            });
+              socket.off("get").on("get", (msg) => {
+                console.log("massage-------", msg[0]);
+                let duplicateMassage = this.massagesList.find((o) => {
+                    o.id == msg[0].id;
+                    console.log("find", duplicateMassage);
+                });
+                if (duplicateMassage == undefined) {
+                    this.massagesList.push(msg[0]);
+                } else {
+                    console.log("fucker");
+                }
+            });
+
+            this.massage = "";
+        },
+    },
+    components: {
         AppLayout,
         Welcome,
     },
 
-   created() {
-console.log("dasdasd")
-   },
-   props:['massages','admin','senderUser','senderid']
-}
+    created() {
+        console.log("dasdasd");
+    },
+};
 </script>
