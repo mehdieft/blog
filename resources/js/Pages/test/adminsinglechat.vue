@@ -2,7 +2,7 @@
  <app-layout title="Dashboard">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                چت با دکتر
+               
             </h2>
         </template>
 
@@ -28,7 +28,7 @@
                         <div class="flex flex-col leading-tight">
                             <div class="text-2xl mt-1 flex items-center">
                                 <span class="text-gray-700 mr-3"
-                                    >Anderson Vanhron</span
+                                    >{{user.name}}</span
                                 >
                                 <span class="text-green-500">
                                     <svg width="10" height="10">
@@ -42,7 +42,7 @@
                                 </span>
                             </div>
                             <span class="text-lg text-gray-600"
-                                >Junior Developer</span
+                                >آنلاین</span
                             >
                         </div>
                     </div>
@@ -483,11 +483,15 @@ export default {
             massage: "hello zepp",
             admin: null,
             massagesList: [],
+            user:'',
         };
     },
     mounted(){
          this.massagesList = this.massages;
          console.log("dasdgaksjdh",this.massagesList)
+         console.log("sender user",this.senderUser)
+         this.user=this.senderUser
+         console.log("this is userrrrr-------------->",this.user);
 
     },
      components: {

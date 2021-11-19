@@ -61,10 +61,11 @@ class mehdiTestController extends Controller
         $massages=Chat::where('sender',$request->id)->orwhere('reciever',$request->id)->get();
         $reciever=User::where('id',$request->id)->select('email');
         $admin=Auth::user();
-        $user=User::where('id',$request->id)->get();
+        $user=User::where('id',$request->id)->first();
         return Inertia::render('test/adminsinglechat',[
             'sender'=>Auth::user()->email,
             'senderid'=>Auth::user()->id,
+            'senderUser'=>$user,
             'reciever'=>$reciever,
             'massages'=>$massages->map(function($msg){
                 return[
