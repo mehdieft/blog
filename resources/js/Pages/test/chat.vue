@@ -478,6 +478,7 @@
 import io from "socket.io-client";
 import AppLayout from "../../Layouts/AppLayout.vue";
 import Welcome from "@/Jetstream/Welcome.vue";
+import SocketIOFileUpload from "socketio-file-upload";
 let socket = null;
 let uploader=null;
 
@@ -539,14 +540,8 @@ export default {
         console.log("mylist", this.massagesList);
 
         socket = io.connect("http://localhost:5000");
-<<<<<<< HEAD
-<<<<<<< HEAD
         this.uploader = new SocketIOFileUpload(socket);
         
-=======
->>>>>>> parent of 5a05ae8 (installing file-uploader)
-=======
->>>>>>> parent of 5a05ae8 (installing file-uploader)
             socket.off("private-massage").on("private-massage", (msg) => {
                 console.log("massage-------", msg[0]);
                     this.massagesList.push(msg[0]);
