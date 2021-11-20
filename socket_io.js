@@ -1,5 +1,9 @@
-const app = require("express")();
+var siofu = require("socketio-file-upload");
+const app = require("express")().use(siofu.router);
 const MOMENT = require("moment");
+const path = require('path');
+const fs = require('fs');
+
 const server = require("http").createServer(app);
 var usersData = [];
 const io = require("socket.io")(server, {
@@ -44,7 +48,30 @@ const cors = require("cors");
 io.on("connection", (socket) => {
     socket.on("findme", (callback) => {
         console.log("****", callback);
+        socket.on('filesend',(msg)=>{
+             var uploader = new siofu();
+        fs.mkdir( locationFile= path.join(__dirname+'/public',""+callback.email+""),function(err){
+            if(err){
+                console.log("err",err)
+                console.log(" a in error",locationFile);
+            }
+            else{
+                console.log("a??",locationFile);
+                
+                console.log("path is created");
+            }
+        })
+        uploader.dir =locationFile+""+(Math.random()*100000+1)+"";
+        uploader.on("saved", function(event){
+            console.log(event.file);
+            console.log("this is the path-------",locationFile+"\\"+""+event.file.name+"");
+           
+        });
+    
+        uploader.listen(socket)
 
+        })
+       
      
       
 

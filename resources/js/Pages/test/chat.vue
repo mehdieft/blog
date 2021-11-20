@@ -480,6 +480,7 @@ import AppLayout from "../../Layouts/AppLayout.vue";
 import Welcome from "@/Jetstream/Welcome.vue";
 import SocketIOFileUpload from "socketio-file-upload";
 let socket = null;
+let uploader=null;
 
 export default {
     props: ["sender", "reciever", "massages", "senderid"],
@@ -516,6 +517,11 @@ export default {
 
         previewFiles(event) {
             console.log("********", event.target.files);
+            socket.emit('filesend',{
+                file:this.uploader.listenOnInput(this.$refs.file),
+                sender:this.sender,
+                reciever:this.admin
+                });
         },
     },
 
@@ -534,7 +540,8 @@ export default {
         console.log("mylist", this.massagesList);
 
         socket = io.connect("http://localhost:5000");
-        var uploader = new SocketIOFileUpload(socket)
+        this.uploader = new SocketIOFileUpload(socket);
+        
             socket.off("private-massage").on("private-massage", (msg) => {
                 console.log("massage-------", msg[0]);
                     this.massagesList.push(msg[0]);
