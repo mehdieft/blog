@@ -26,6 +26,7 @@
         "vue-loader": "^16.1.2"
     },
     "dependencies": {
+        "body-parser": "^1.19.0",
         "cors": "^2.8.5",
         "dateformat": "^5.0.2",
         "express": "^4.17.1",
@@ -35,6 +36,7 @@
         "socket.io": "^4.3.2",
         "socket.io-client": "^4.3.2",
         "socket.io-stream": "^0.9.1",
+        "socketio-file-upload": "^0.7.3",
         "vuetify": "^2.5.14"
     }
 }
