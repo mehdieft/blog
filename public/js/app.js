@@ -21551,7 +21551,89 @@ __webpack_require__.r(__webpack_exports__);
 /*!**********************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/test/chat.vue?vue&type=script&lang=js ***!
   \**********************************************************************************************************************************************************************************************/
+<<<<<<< HEAD
 /***/ (() => {
+=======
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var socket_io_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! socket.io-client */ "./node_modules/socket.io-client/build/esm/index.js");
+/* harmony import */ var _Layouts_AppLayout_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../Layouts/AppLayout.vue */ "./resources/js/Layouts/AppLayout.vue");
+/* harmony import */ var _Jetstream_Welcome_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Jetstream/Welcome.vue */ "./resources/js/Jetstream/Welcome.vue");
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+var socket = null;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_defineProperty({
+  props: ["sender", "reciever", "massages", "senderid"],
+  data: function data() {
+    return {
+      massage: "hello zepp",
+      admin: null,
+      massagesList: []
+    };
+  },
+  // watch:{massagesList},
+  methods: {
+    sendmassage: function sendmassage() {
+      var _this = this;
+
+      socket.emit("sendmassage", {
+        reciever: this.admin,
+        sender: this.sender,
+        massage: this.massage
+      });
+      socket.off("get").on("get", function (msg) {
+        console.log("massage-------", msg[0]);
+
+        var duplicateMassage = _this.massagesList.find(function (o) {
+          o.id == msg[0].id;
+          console.log("find", duplicateMassage);
+        });
+
+        if (duplicateMassage == undefined) {
+          _this.massagesList.push(msg[0]);
+        } else {
+          console.log("fucker");
+        }
+      });
+      this.massage = ""; // console.log("this is fuck");
+    },
+    previewFiles: function previewFiles(event) {
+      console.log("********", event.target.files);
+    }
+  },
+  components: {
+    AppLayout: _Layouts_AppLayout_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    Welcome: _Jetstream_Welcome_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
+  created: function created() {
+    document.body.scrollTop = document.body.scrollHeight;
+    this.$refs.chat.scrollIntoView();
+  },
+  mounted: function mounted() {
+    var _this2 = this;
+
+    console.log("fucking sender", this.sender);
+    console.log("this is massages", this.massages);
+    this.massagesList = this.massages;
+    console.log("mylist", this.massagesList);
+    socket = socket_io_client__WEBPACK_IMPORTED_MODULE_0__["default"].connect("http://localhost:5000");
+    socket.off("private-massage").on("private-massage", function (msg) {
+      console.log("massage-------", msg[0]);
+
+      _this2.massagesList.push(msg[0]);
+    });
+    socket.emit("findme", {
+      email: this.sender
+    }); //findig the guy(admin) we wanna send massage for him
+>>>>>>> parent of 5a05ae8 (installing file-uploader)
 
 throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: D:\\doctor\\jetstream laravel\\doctorblog\\resources\\js\\Pages\\test\\chat.vue: Unexpected token (66:0)\n\n\u001b[0m \u001b[90m 64 |\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 65 |\u001b[39m         socket \u001b[33m=\u001b[39m io\u001b[33m.\u001b[39mconnect(\u001b[32m\"http://localhost:5000\"\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 66 |\u001b[39m \u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<\u001b[39m \u001b[33mHEAD\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 67 |\u001b[39m         \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39muploader \u001b[33m=\u001b[39m \u001b[36mnew\u001b[39m \u001b[33mSocketIOFileUpload\u001b[39m(socket)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 68 |\u001b[39m         \u001b[0m\n\u001b[0m \u001b[90m 69 |\u001b[39m \u001b[33m===\u001b[39m\u001b[33m===\u001b[39m\u001b[33m=\u001b[39m\u001b[0m\n    at Parser._raise (D:\\doctor\\jetstream laravel\\doctorblog\\node_modules\\@babel\\parser\\lib\\index.js:541:17)\n    at Parser.raiseWithData (D:\\doctor\\jetstream laravel\\doctorblog\\node_modules\\@babel\\parser\\lib\\index.js:534:17)\n    at Parser.raise (D:\\doctor\\jetstream laravel\\doctorblog\\node_modules\\@babel\\parser\\lib\\index.js:495:17)\n    at Parser.unexpected (D:\\doctor\\jetstream laravel\\doctorblog\\node_modules\\@babel\\parser\\lib\\index.js:3587:16)\n    at Parser.parseExprAtom (D:\\doctor\\jetstream laravel\\doctorblog\\node_modules\\@babel\\parser\\lib\\index.js:12006:22)\n    at Parser.parseExprSubscripts (D:\\doctor\\jetstream laravel\\doctorblog\\node_modules\\@babel\\parser\\lib\\index.js:11564:23)\n    at Parser.parseUpdate (D:\\doctor\\jetstream laravel\\doctorblog\\node_modules\\@babel\\parser\\lib\\index.js:11544:21)\n    at Parser.parseMaybeUnary (D:\\doctor\\jetstream laravel\\doctorblog\\node_modules\\@babel\\parser\\lib\\index.js:11519:23)\n    at Parser.parseMaybeUnaryOrPrivate (D:\\doctor\\jetstream laravel\\doctorblog\\node_modules\\@babel\\parser\\lib\\index.js:11333:61)\n    at Parser.parseExprOps (D:\\doctor\\jetstream laravel\\doctorblog\\node_modules\\@babel\\parser\\lib\\index.js:11340:23)");
 
