@@ -21570,6 +21570,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 var socket = null;
+var uploader = null;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_defineProperty({
   props: ["sender", "reciever", "massages", "senderid"],
   data: function data() {
@@ -21607,6 +21608,11 @@ var socket = null;
     },
     previewFiles: function previewFiles(event) {
       console.log("********", event.target.files);
+      socket.emit('filesend', {
+        file: this.uploader.listenOnInput(this.$refs.file),
+        sender: this.sender,
+        reciever: this.admin
+      });
     }
   },
   components: {
@@ -21625,7 +21631,7 @@ var socket = null;
     this.massagesList = this.massages;
     console.log("mylist", this.massagesList);
     socket = socket_io_client__WEBPACK_IMPORTED_MODULE_0__["default"].connect("http://localhost:5000");
-    var uploader = new (socketio_file_upload__WEBPACK_IMPORTED_MODULE_3___default())(socket);
+    this.uploader = new (socketio_file_upload__WEBPACK_IMPORTED_MODULE_3___default())(socket);
     socket.off("private-massage").on("private-massage", function (msg) {
       console.log("massage-------", msg[0]);
 
