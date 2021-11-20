@@ -45,10 +45,8 @@ io.on("connection", (socket) => {
     socket.on("findme", (callback) => {
         console.log("****", callback);
 
-        //function
-        function emitToBoth(item) {
-            socket.emit("get", item);
-        }
+     
+      
 
         let obj = usersData.find((o) => o.email == callback.email);
         obj.socketID = socket.id;
@@ -59,7 +57,10 @@ io.on("connection", (socket) => {
             //   console.log('all users----for admin',users);
             socket.emit("users", users);
             socket.on("adminmassage", (msg) => {
+                console.log("whtas massage")
                 let datetime = MOMENT().format("YYYY-MM-DD  HH:mm:ss.000");
+                reciever= usersData.find((o) => o.id==msg.reciever)
+                console.log("recievrrrrrrrrrrrrrrrrrrrrrrrrrrrr",reciever)
 
                 console.log("user data and admin", msg);
                 //   sender= usersData.find((o)=>o.email==msg.sender);
@@ -85,8 +86,18 @@ io.on("connection", (socket) => {
                                 //   console.log("res data", res);
                                 if (res) {
                                     //   console.log("*************************");
-                                    socket.emit("get", res);
-                                    console.log("this is admin massage");
+                                    // socket.emit("get", res);
+                                    // console.log("this is admin massage");
+                                    if(reciever.socketID !=null){
+                                        socket.to(reciever.socketID).emit('private-massage',res);
+                                        socket.emit("get", res);
+
+
+                                    }else{
+                                        socket.emit("get", res);
+
+                                    }
+
                                 }
                             }
                         );
@@ -105,7 +116,7 @@ io.on("connection", (socket) => {
             socket.on("sendmassage", (msg) => {
                 let datetime = MOMENT().format("YYYY-MM-DD  HH:mm:ss.000");
                 sender = usersData.find((o) => o.email == msg.sender);
-                reciever = usersData.find((o) => o.id == msg.reciever).id;
+                reciever = usersData.find((o) => o.id == msg.reciever.id);
 
                 con.query(
                     "INSERT INTO chats (sender, reciever, massage,created_at) VALUES ('" +
@@ -133,6 +144,8 @@ io.on("connection", (socket) => {
                                         socket.emit("get", res);
                                         console.log("this is user emit");
                                     }else{
+                                        console.log("admin is online---");
+                                        socket.emit("get", res);
                                         socket.to(reciever.socketID).emit('private-massage',res);
                                     }
                                 }

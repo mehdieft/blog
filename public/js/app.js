@@ -21622,21 +21622,11 @@ var socket = null;
     this.massagesList = this.massages;
     console.log("mylist", this.massagesList);
     socket = socket_io_client__WEBPACK_IMPORTED_MODULE_0__["default"].connect("http://localhost:5000");
-    socket.off("get").on("get", function (msg) {
+    socket.off("private-massage").on("private-massage", function (msg) {
       console.log("massage-------", msg[0]);
 
-      var duplicateMassage = _this2.massagesList.find(function (o) {
-        o.id == msg[0].id;
-        console.log("find", duplicateMassage);
-      });
-
-      if (duplicateMassage == undefined) {
-        _this2.massagesList.push(msg[0]);
-      } else {
-        console.log("fucker");
-      }
-    }); //method for findeing the user and give him socket
-
+      _this2.massagesList.push(msg[0]);
+    });
     socket.emit("findme", {
       email: this.sender
     }); //findig the guy(admin) we wanna send massage for him

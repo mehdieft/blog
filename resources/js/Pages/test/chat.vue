@@ -533,19 +533,10 @@ export default {
         console.log("mylist", this.massagesList);
 
         socket = io.connect("http://localhost:5000");
-            socket.off("get").on("get", (msg) => {
+            socket.off("private-massage").on("private-massage", (msg) => {
                 console.log("massage-------", msg[0]);
-                let duplicateMassage = this.massagesList.find((o) => {
-                    o.id == msg[0].id;
-                    console.log("find", duplicateMassage);
-                });
-                if (duplicateMassage == undefined) {
                     this.massagesList.push(msg[0]);
-                } else {
-                    console.log("fucker");
-                }
-            });
-        //method for findeing the user and give him socket
+                });
         socket.emit("findme", {
             email: this.sender,
         });
