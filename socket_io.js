@@ -1,6 +1,7 @@
 var siofu = require("socketio-file-upload");
 const app = require("express")().use(siofu.router);
 const MOMENT = require("moment");
+var  crypto  = require("crypto");
 const path = require('path');
 const fs = require('fs');
 
@@ -173,23 +174,33 @@ io.on("connection", (socket) => {
 
          socket.on('filesend',(msg)=>{
              var uploader = new siofu();
-        fs.mkdir( locationFile= path.join(__dirname+'/public',""+callback.email+""),function(err){
-            if(err){
-                console.log("err",err)
-                console.log(" a in error",locationFile);
-            }
-            else{
-                console.log("a??",locationFile);
-                
-                console.log("path is created");
-            }
+        fs.mkdir( locationFile= path.join(__dirname+'/public',""+callback.email),function(err){
+            console.log("location anyway",locationFile);
         })
-        uploader.dir =locationFile+""+(Math.random()*100000+1)+"";
-        uploader.on("saved", function(event){
-            console.log(event.file);
-            console.log("this is the path-------",locationFile+"\\"+""+event.file.name+"");
+
+
+
+
+        var cryptPath=crypto.createHash('md5').update(""+(Math.random()*10000000+1)+"").digest('hex');
+        if (!fs.existsSync(locationFile+"/"+ cryptPath)){
+            fs.mkdirSync(locationFile+"/"+cryptPath);
+            uploader.dir =locationFile+"/"+cryptPath;
+            uploader.on("saved", function(event){
+                
+                console.log('fileeeeeeeeeeeeee',event.file.pathName);
+                ImagePath=event.file.pathName;
+                ImagePath.split('public')[1];
+                console.log("save it fucker",ImagePath.split('public')[1].replace(/\//g,'/'));
+
+                // var path =locationFile+"\\"+""+event.file.name+"";
+                // console.log("my path**********",path);
+                // normalPath=path.replace(/\\/g, "/");
+                // console.log("this is normal path i hop===>",normalPath);
+                // console.log("splicing for store in database",path.split('public\\')[1]);
+                
+            });
+        }
            
-        });
     
         uploader.listen(socket)
 
