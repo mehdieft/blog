@@ -173,6 +173,7 @@ io.on("connection", (socket) => {
 
 
          socket.on('filesend',(msg)=>{
+             console.log("msg",msg);
              var uploader = new siofu();
         fs.mkdir( locationFile= path.join(__dirname+'/public',""+callback.email),function(err){
             console.log("location anyway",locationFile);
@@ -190,7 +191,11 @@ io.on("connection", (socket) => {
                 console.log('fileeeeeeeeeeeeee',event.file.pathName);
                 ImagePath=event.file.pathName;
                 ImagePath.split('public')[1];
-                console.log("save it fucker",ImagePath.split('public')[1].replace(/\//g,'/'));
+                imageDirection =ImagePath.split('public')[1];
+                dirr=imageDirection.toString().replace(/\//g, "jhfgjh");
+                console.log("dir",dirr)
+
+               
 
                 // var path =locationFile+"\\"+""+event.file.name+"";
                 // console.log("my path**********",path);
