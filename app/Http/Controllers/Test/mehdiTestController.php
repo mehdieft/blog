@@ -37,12 +37,16 @@ class mehdiTestController extends Controller
 
             $user_id=Auth::user()->email;
             $massage=Chat::where('sender',Auth::user()->id)->orwhere('reciever',Auth::user()->id)->get();
+            $adminImage=User::where('id',1)->get('profile_photo_path');
             $reciever=User::select('email')->first();
             // dd($reciever);
             return Inertia::render('test/chat',
             ['sender'=>$user_id,
+            'adminImage'=>$adminImage,
+            'userImage'=>Auth::user()->profile_photo_path,
             'reciever'=>$reciever['email'],
             'senderid'=>Auth::user()->id,
+
             'massages'=>$massage->map(function($msg){
                 return [
                 'id'=>$msg->id,
