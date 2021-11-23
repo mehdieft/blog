@@ -174,6 +174,7 @@ io.on("connection", (socket) => {
 
          socket.on('filesend',(msg)=>{
              console.log("msg",msg);
+             senderUser=usersData.find((o)=>o.email==msg.sender)
              var uploader = new siofu();
         fs.mkdir( locationFile= path.join(__dirname+'/public',""+callback.email),function(err){
             console.log("location anyway",locationFile);
@@ -191,17 +192,34 @@ io.on("connection", (socket) => {
                 console.log('fileeeeeeeeeeeeee',event.file.pathName);
                 ImagePath=event.file.pathName;
                 ImagePath.split('public')[1];
-                imageDirection =ImagePath.split('public')[1];
-                dirr=imageDirection.toString().replace(/\//g, "jhfgjh");
-                console.log("dir",dirr)
+                imageDirection =ImagePath.split('public\\')[1];
+                console.log("type of------------->>",typeof(imageDirection));
+                dirr=imageDirection.replace(/\\/g, "/");
+                let datetime = MOMENT().format("YYYY-MM-DD  HH:mm:ss.000");
+                console.log("dir",dirr);
+                con.query("INSERT INTO chats (sender,reciever,image,created_at) VALUES ('"+senderUser.id
+                +"','"+msg.reciever.id
+                +"','"+dirr
+                +"','"+datetime+"')",function(err,res){
+                    if(err)console.log("error--->",err);
+                    console.log("res on save image--->");
+                    con.query("SELECT * FROM chats WHERE id='"+res.insertId+"'",function(err,res){
+                        if(res){
+                            if(msg.reciever.socketID==null){
+                                console.log("send massage for user back");
+                               
+                            }else{ 
+                                socket.to(msg.reciever.socketID).emit('private-massage',res);
+                                socket.emit("getfile",res);
+                            }
+                            
+                        }
 
-               
+                    })
+                        
+                    
+                })
 
-                // var path =locationFile+"\\"+""+event.file.name+"";
-                // console.log("my path**********",path);
-                // normalPath=path.replace(/\\/g, "/");
-                // console.log("this is normal path i hop===>",normalPath);
-                // console.log("splicing for store in database",path.split('public\\')[1]);
                 
             });
         }
