@@ -49,6 +49,7 @@ const cors = require("cors");
 io.on("connection", (socket) => {
     socket.on("findme", (callback) => {
         console.log("****", callback);
+        var uploader = new siofu();
 
         let obj = usersData.find((o) => o.email == callback.email);
         obj.socketID = socket.id;
@@ -165,16 +166,22 @@ io.on("connection", (socket) => {
         socket.on("filesend", (msg) => {
             console.log("msg", msg);
             senderUser = usersData.find((o) => o.email == msg.sender);
-            var uploader = new siofu();
-            fs.mkdir(
-                (locationFile = path.join(
-                    __dirname + "/public",
-                    "" + callback.email
-                )),
-                function (err) {
-                    console.log("location anyway", locationFile);
-                }
+
+            const locationFile = path.join(__dirname, "/public");
+            console.log(
+                "dirname----------------------------------------<>",
+                locationFile
             );
+            // fs.mkdir(
+            //     (locationFile = path.join(
+            //         __dirname + "/public",
+            //         "" + callback.email
+            //     )),
+            //     function (err) {
+            //         console.log("location anyway", locationFile);
+            //     }
+            // );
+            //****************************************************************************************end this problem please */
             console.log("hereeee");
 
             var cryptPath = crypto
@@ -182,8 +189,10 @@ io.on("connection", (socket) => {
                 .update("" + (Math.random() * 10000000 + 1) + "")
                 .digest("hex");
             if (!fs.existsSync(locationFile + "/" + cryptPath)) {
+                console.log("come to here please");
                 fs.mkdirSync(locationFile + "/" + cryptPath);
                 uploader.dir = locationFile + "/" + cryptPath;
+                console.log("its fucking funny",uploader.dir);
                 uploader.on("start", function (event) {
                     console.log("whats happened every time", event);
                 });
@@ -192,7 +201,7 @@ io.on("connection", (socket) => {
                     console.log("mybe error--->");
                 });
                 setTimeout(function () {
-                    uploader.on("saved", function (event) {
+                    uploader.once("saved", function (event) {
                         console.log("fileeeeeeeeeeeeee", event.file.pathName);
                         ImagePath = event.file.pathName;
                         ImagePath.split("public")[1];
@@ -229,6 +238,7 @@ io.on("connection", (socket) => {
                                                 console.log(
                                                     "send massage for user back"
                                                 );
+                                                socket.emit("getfile", res);
                                             } else {
                                                 socket
                                                     .to(msg.reciever.socketID)
@@ -245,6 +255,8 @@ io.on("connection", (socket) => {
                         );
                     });
                 }, 5000);
+            } else {
+                console.log("fuck this life");
             }
 
             uploader.listen(socket);
