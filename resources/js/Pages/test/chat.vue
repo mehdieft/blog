@@ -195,7 +195,8 @@
                                     >
                                         {{ massage.massage }}
                                     </span>
-                                   <a v-else :href="image(massage.image)" target="_blank"> <img :src="image(massage.image)" alt="wrong"></a>
+                                    <img :src="image(massage.image)" alt="wrong">
+                                     
                                 </div>
                             </div>
                             <img
