@@ -21577,13 +21577,17 @@ var uploader = null;
     return {
       massage: "hello zepp",
       admin: null,
-      basepath: 'http://localhost:8000/',
-      userImageUrl: 'http://localhost:8000/storage/',
+      basepath: "http://localhost:8000/",
+      userImageUrl: "http://localhost:8000/storage/",
       massagesList: []
     };
   },
   // watch:{massagesList},
   methods: {
+    scrollToend: function scrollToend() {
+      var content = this.$refs.chat;
+      content.scrollTop = content.scrollHeight; //  content.scrollIntoView
+    },
     sendmassage: function sendmassage() {
       var _this = this;
 
@@ -21605,6 +21609,8 @@ var uploader = null;
 
           if (duplicateMassage == undefined) {
             _this.massagesList.push(msg[0]);
+
+            _this.scrollToend();
           } else {
             console.log("fucker");
           }
@@ -21665,9 +21671,7 @@ var uploader = null;
     AppLayout: _Layouts_AppLayout_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     Welcome: _Jetstream_Welcome_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
-  created: function created() {
-    document.body.scrollTop = document.body.scrollHeight;
-    this.$refs.chat.scrollIntoView();
+  created: function created() {// this.$refs.chat.scrollIntoView;
   },
   mounted: function mounted() {
     var _this3 = this;
@@ -21676,6 +21680,9 @@ var uploader = null;
     console.log("this is massages", this.massages);
     this.massagesList = this.massages;
     console.log("mylist", this.massagesList);
+    setInterval(function () {
+      this.scrollToend();
+    }, 3000);
     socket = socket_io_client__WEBPACK_IMPORTED_MODULE_0__["default"].connect("http://localhost:5000");
     this.uploader = new (socketio_file_upload__WEBPACK_IMPORTED_MODULE_3___default())(socket);
     socket.off("private-massage").on("private-massage", function (msg) {
@@ -26946,14 +26953,19 @@ var _hoisted_17 = {
 };
 var _hoisted_18 = ["src"];
 var _hoisted_19 = ["src"];
-var _hoisted_20 = {
+
+var _hoisted_20 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1
+/* HOISTED */
+);
+
+var _hoisted_21 = {
   "class": "border-t-2 border-gray-200 px-4 pt-4 mb-2 sm:mb-0"
 };
-var _hoisted_21 = {
+var _hoisted_22 = {
   "class": "relative flex"
 };
 
-var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+var _hoisted_23 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
   "class": "absolute inset-y-0 flex items-center"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
   type: "button",
@@ -26973,11 +26985,11 @@ var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 /* HOISTED */
 );
 
-var _hoisted_23 = {
+var _hoisted_24 = {
   "class": "absolute right-0 items-center inset-y-0 hidden sm:flex"
 };
 
-var _hoisted_24 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+var _hoisted_25 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
   xmlns: "http://www.w3.org/2000/svg",
   fill: "none",
   viewBox: "0 0 24 24",
@@ -26992,9 +27004,9 @@ var _hoisted_24 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 /* HOISTED */
 );
 
-var _hoisted_25 = [_hoisted_24];
+var _hoisted_26 = [_hoisted_25];
 
-var _hoisted_26 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+var _hoisted_27 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
   type: "button",
   "class": "inline-flex items-center justify-center rounded-full h-10 w-10 transition duration-500 ease-in-out text-gray-500 hover:bg-gray-300 focus:outline-none"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
@@ -27017,7 +27029,7 @@ var _hoisted_26 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 /* HOISTED */
 );
 
-var _hoisted_27 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+var _hoisted_28 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
   type: "button",
   "class": "inline-flex items-center justify-center rounded-full h-10 w-10 transition duration-500 ease-in-out text-gray-500 hover:bg-gray-300 focus:outline-none"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
@@ -27035,7 +27047,7 @@ var _hoisted_27 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 /* HOISTED */
 );
 
-var _hoisted_28 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+var _hoisted_29 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
   disabled: "true",
   type: "submit",
   "class": "inline-flex items-center justify-center rounded-full h-12 w-12 transition duration-500 ease-in-out text-white bg-blue-500 hover:bg-blue-400 focus:outline-none"
@@ -27101,9 +27113,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         , _hoisted_19)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]);
       }), 128
       /* KEYED_FRAGMENT */
-      ))], 512
+      )), _hoisted_20], 512
       /* NEED_PATCH */
-      ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [_hoisted_22, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
+      ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_22, [_hoisted_23, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
         "class": "w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-12 bg-gray-200 rounded-full py-3",
         onSubmit: _cache[1] || (_cache[1] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
           return $options.sendmassage();
@@ -27119,7 +27131,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       /* NEED_PATCH */
       ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.massage]])], 32
       /* HYDRATE_EVENTS */
-      ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_23, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+      ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_24, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
         type: "file",
         multiple: "",
         ref: "file",
@@ -27137,7 +27149,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         }),
         type: "button",
         "class": "inline-flex items-center justify-center rounded-full h-10 w-10 transition duration-500 ease-in-out text-gray-500 hover:bg-gray-300 focus:outline-none"
-      }, _hoisted_25), _hoisted_26, _hoisted_27, _hoisted_28])])])])])];
+      }, _hoisted_26), _hoisted_27, _hoisted_28, _hoisted_29])])])])])];
     }),
     _: 1
     /* STABLE */

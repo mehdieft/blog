@@ -21,7 +21,7 @@
                 >
                     <div class="flex items-center space-x-4">
                         <img
-                        :src="adminImage()"
+                            :src="adminImage()"
                             alt=""
                             class="w-10 sm:w-16 h-10 sm:h-16 rounded-full"
                         />
@@ -182,7 +182,7 @@
                             >
                                 <div>
                                     <span
-                                    v-if="massage.image==NULL"
+                                        v-if="massage.image == NULL"
                                         class="
                                             px-4
                                             py-2
@@ -195,8 +195,11 @@
                                     >
                                         {{ massage.massage }}
                                     </span>
-                                    <img v-else :src="image(massage.image)" alt="wrong">
-                                     
+                                    <img
+                                        v-else
+                                        :src="image(massage.image)"
+                                        alt="wrong"
+                                    />
                                 </div>
                             </div>
                             <img
@@ -222,7 +225,7 @@
                             >
                                 <div>
                                     <span
-                                    v-if="massage.image==NULL"
+                                        v-if="massage.image == NULL"
                                         class="
                                             px-4
                                             py-2
@@ -234,7 +237,7 @@
                                         "
                                         >{{ massage.massage }}</span
                                     >
-                                    <img :src="massage.image" v-else alt="">
+                                    <img :src="massage.image" v-else alt="" />
                                 </div>
                             </div>
                             <img
@@ -244,6 +247,7 @@
                             />
                         </div>
                     </div>
+                    <br>
                 </div>
                 <div class="border-t-2 border-gray-200 px-4 pt-4 mb-2 sm:mb-0">
                     <div class="relative flex">
@@ -281,17 +285,19 @@
                                 </svg>
                             </button>
                         </span>
-                        <form class="
-                                    w-full
-                                    focus:outline-none
-                                    focus:placeholder-gray-400
-                                    text-gray-600
-                                    placeholder-gray-600
-                                    pl-12
-                                    bg-gray-200
-                                    rounded-full
-                                    py-3
-                                " @submit.prevent="sendmassage()">
+                        <form
+                            class="
+                                w-full
+                                focus:outline-none focus:placeholder-gray-400
+                                text-gray-600
+                                placeholder-gray-600
+                                pl-12
+                                bg-gray-200
+                                rounded-full
+                                py-3
+                            "
+                            @submit.prevent="sendmassage()"
+                        >
                             <input
                                 v-model="massage"
                                 type="text"
@@ -308,7 +314,6 @@
                                     py-3
                                 "
                             />
-
                         </form>
                         <div
                             class="
@@ -499,18 +504,31 @@ let socket = null;
 let uploader = null;
 
 export default {
-    props: ["sender", "reciever", "massages", "senderid","userImage","adminImage"],
+    props: [
+        "sender",
+        "reciever",
+        "massages",
+        "senderid",
+        "userImage",
+        "adminImage",
+    ],
     data() {
         return {
             massage: "hello zepp",
             admin: null,
-            basepath:'http://localhost:8000/',
-            userImageUrl:'http://localhost:8000/storage/',
+            basepath: "http://localhost:8000/",
+            userImageUrl: "http://localhost:8000/storage/",
             massagesList: [],
         };
     },
     // watch:{massagesList},
     methods: {
+        scrollToend() {
+            var content = this.$refs.chat;
+            content.scrollTop = content.scrollHeight;
+            //  content.scrollIntoView
+        },
+
         sendmassage() {
             if (this.massage == "") {
                 alert("please type");
@@ -528,6 +546,7 @@ export default {
                     });
                     if (duplicateMassage == undefined) {
                         this.massagesList.push(msg[0]);
+                        this.scrollToend();
                     } else {
                         console.log("fucker");
                     }
@@ -545,46 +564,45 @@ export default {
                 reciever: this.admin,
             });
             //method on get data back
-            socket.off("getfile").on("getfile",(msg)=>{
-                console.log("my file send back---->",msg)
+            socket.off("getfile").on("getfile", (msg) => {
+                console.log("my file send back---->", msg);
                 this.massagesList.push(msg[0]);
                 let duplicateMassage = this.massagesList.find((o) => {
-                        o.id == msg[0].id;
-                        console.log("find", duplicateMassage);
-                    });
-                    if (duplicateMassage == undefined) {
-                        this.massagesList.push(msg[0]);
-                    } else {
-                        console.log("fucker");
-                    }
+                    o.id == msg[0].id;
+                    console.log("find", duplicateMassage);
+                });
+                if (duplicateMassage == undefined) {
+                    this.massagesList.push(msg[0]);
+                } else {
+                    console.log("fucker");
+                }
             });
         },
-        image(item){
-            console.log("imge",item);
-            return this.basepath+item;
+        image(item) {
+            console.log("imge", item);
+            return this.basepath + item;
         },
-        profileImage(){
-            if(this.userImage==null){
-                return this.basepath+"userdefault.png";
-
-            }else{
-
-                console.log("******profile",this.userImage)
-                return this.userImageUrl+this.userImage;
+        profileImage() {
+            if (this.userImage == null) {
+                return this.basepath + "userdefault.png";
+            } else {
+                console.log("******profile", this.userImage);
+                return this.userImageUrl + this.userImage;
             }
         },
-        adminImage(){
-            console.log("admin image what are you?",this.adminImage[0].profile_photo_path);
-            if(this.adminImage[0]==null){
-
-                return this.basepath+"userdefault.png"
-
-            }else{
-
-                return this.userImageUrl+this.adminImage[0].profile_photo_path;
+        adminImage() {
+            console.log(
+                "admin image what are you?",
+                this.adminImage[0].profile_photo_path
+            );
+            if (this.adminImage[0] == null) {
+                return this.basepath + "userdefault.png";
+            } else {
+                return (
+                    this.userImageUrl + this.adminImage[0].profile_photo_path
+                );
             }
-
-        }
+        },
     },
 
     components: {
@@ -592,14 +610,16 @@ export default {
         Welcome,
     },
     created() {
-        document.body.scrollTop = document.body.scrollHeight;
-        this.$refs.chat.scrollIntoView();
+        // this.$refs.chat.scrollIntoView;
     },
     mounted() {
         console.log("fucking sender", this.sender);
         console.log("this is massages", this.massages);
         this.massagesList = this.massages;
         console.log("mylist", this.massagesList);
+        setInterval(function () {
+            this.scrollToend();
+        }, 3000);
 
         socket = io.connect("http://localhost:5000");
         this.uploader = new SocketIOFileUpload(socket);
