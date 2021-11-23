@@ -2,6 +2,7 @@ var siofu = require("socketio-file-upload");
 const app = require("express")().use(siofu.router);
 const MOMENT = require("moment");
 var crypto = require("crypto");
+const deleteEmpty = require('delete-empty');
 const path = require("path");
 const fs = require("fs");
 
@@ -262,6 +263,11 @@ io.on("connection", (socket) => {
             uploader.listen(socket);
         });
     });
+    (async () => {
+        let deleted = await deleteEmpty(path.join(__dirname, "/public"));
+        console.log(deleted); //=> ['foo/aa/', 'foo/a/cc/', 'foo/b/', 'foo/c/']
+      })();
+      
 });
 
 server.listen(5000, () => {
