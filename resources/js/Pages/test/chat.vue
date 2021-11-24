@@ -573,6 +573,7 @@ export default {
                 });
                 if (duplicateMassage == undefined) {
                     this.massagesList.push(msg[0]);
+                    console.log("fucking massageList-----",this.massagesList.length);
                 } else {
                     console.log("fucker");
                 }

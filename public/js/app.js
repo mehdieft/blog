@@ -21640,6 +21640,8 @@ var uploader = null;
 
         if (duplicateMassage == undefined) {
           _this2.massagesList.push(msg[0]);
+
+          console.log("fucking massageList-----", _this2.massagesList.length);
         } else {
           console.log("fucker");
         }
