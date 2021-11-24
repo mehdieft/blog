@@ -205,7 +205,7 @@
                             <img
                                 :src="profileImage()"
                                 alt="My profile"
-                                class="w-6 h-6 rounded-full order-1"
+                                class="w-16 h-16 rounded-full order-1"
                             />
                         </div>
                         <div
@@ -243,7 +243,7 @@
                             <img
                                 :src="adminImage()"
                                 alt="My profile"
-                                class="w-6 h-6 rounded-full order-2"
+                                class="w-16 h-16 rounded-full order-2"
                             />
                         </div>
                     </div>

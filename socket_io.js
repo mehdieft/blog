@@ -43,17 +43,14 @@ con.connect(function (err) {
                 };
             }
         }
-        );
-    });
-    
-    const cors = require("cors");
-    io.on("connection", function(socket) 
-    {
-        var uploader = new siofu();
-        uploader.listen(socket);
+    );
+});
+
+const cors = require("cors");
+io.on("connection", (socket) => {
     socket.on("findme", (callback) => {
-        // console.log("****", callback);
-       
+        console.log("****", callback);
+        var uploader = new siofu();
 
         let obj = usersData.find((o) => o.email == callback.email);
         obj.socketID = socket.id;
@@ -64,12 +61,12 @@ con.connect(function (err) {
             //   console.log('all users----for admin',users);
             socket.emit("users", users);
             socket.on("adminmassage", (msg) => {
-                // console.log("whtas massage");
+                console.log("whtas massage");
                 let datetime = MOMENT().format("YYYY-MM-DD  HH:mm:ss.000");
                 reciever = usersData.find((o) => o.id == msg.reciever);
-                // console.log("recievrrrrrrrrrrrrrrrrrrrrrrrrrrrr", reciever);
+                console.log("recievrrrrrrrrrrrrrrrrrrrrrrrrrrrr", reciever);
 
-                // console.log("user data and admin", msg);
+                console.log("user data and admin", msg);
                 //   sender= usersData.find((o)=>o.email==msg.sender);
                 con.query(
                     "INSERT INTO chats (sender, reciever, massage,created_at) VALUES ('" +
@@ -83,7 +80,7 @@ con.connect(function (err) {
                         "')",
                     function (err, res) {
                         if (err) console.log("errrr------------>", err);
-                        // console.log("res--", res);
+                        console.log("res--", res);
                         //get last database
                         con.query(
                             "SELECT * FROM chats WHERE id ='" +
@@ -99,7 +96,7 @@ con.connect(function (err) {
                                         socket
                                             .to(reciever.socketID)
                                             .emit("private-massage", res);
-                                            socket.emit("get", res);
+                                        socket.emit("get", res);
                                     } else {
                                         socket.emit("get", res);
                                     }
@@ -135,7 +132,7 @@ con.connect(function (err) {
                         "')",
                     function (err, res) {
                         if (err) console.log("errrr------------>", err);
-                        // console.log("res--", res);
+                        console.log("res--", res);
                         //get last database
                         con.query(
                             "SELECT * FROM chats WHERE id ='" +
@@ -147,9 +144,9 @@ con.connect(function (err) {
                                     if (reciever.socketID == null) {
                                         //   console.log("*************************");
                                         socket.emit("get", res);
-                                        // console.log("this is user emit");
+                                        console.log("this is user emit");
                                     } else {
-                                        // console.log("admin is online---");
+                                        console.log("admin is online---");
                                         socket.emit("get", res);
                                         socket
                                             .to(reciever.socketID)
@@ -168,16 +165,14 @@ con.connect(function (err) {
         // users=usersData.filter(o => o.email !=callback.email)
 
         socket.on("filesend", (msg) => {
-            // uploader.listen(socket);
-            // console.log("listen---->", uploader.listen(socket));
-            // console.log("msg", msg);
+            console.log("msg", msg);
             senderUser = usersData.find((o) => o.email == msg.sender);
 
             const locationFile = path.join(__dirname, "/public");
-            // console.log(
-            //     "dirname----------------------------------------<>",
-            //     locationFile
-            // );
+            console.log(
+                "dirname----------------------------------------<>",
+                locationFile
+            );
             // fs.mkdir(
             //     (locationFile = path.join(
             //         __dirname + "/public",
@@ -188,44 +183,39 @@ con.connect(function (err) {
             //     }
             // );
             //****************************************************************************************end this problem please */
-            // console.log("hereeee");
-       
+            console.log("hereeee");
 
             var cryptPath = crypto
                 .createHash("md5")
                 .update("" + (Math.random() * 10000000 + 1) + "")
                 .digest("hex");
             if (!fs.existsSync(locationFile + "/" + cryptPath)) {
-                // console.log("come to here please");
+                console.log("come to here please");
                 fs.mkdirSync(locationFile + "/" + cryptPath);
                 uploader.dir = locationFile + "/" + cryptPath;
-                // console.log("its fucking funny",uploader.dir);
-
+                console.log("its fucking funny",uploader.dir);
                 uploader.on("start", function (event) {
-                // console.log("^^^^^^^^^^^^^^^^^^^^^^^");
-
-                    // console.log("whats happened every time", event);
+                    console.log("whats happened every time", event);
                 });
-                
+
                 uploader.on("error", function (event) {
                     console.log("mybe error--->");
                 });
-              
-                
+                setTimeout(function () {
                     uploader.once("saved", function (event) {
-                    
-
-                        // console.log("fileeeeeeeeeeeeee", event.file.pathName);
+                        console.log("fileeeeeeeeeeeeee", event.file.pathName);
                         ImagePath = event.file.pathName;
                         ImagePath.split("public")[1];
                         imageDirection = ImagePath.split("public\\")[1];
-                       
+                        console.log(
+                            "type of------------->>",
+                            typeof imageDirection
+                        );
                         dirr = imageDirection.replace(/\\/g, "/");
                         let datetime = MOMENT().format(
                             "YYYY-MM-DD  HH:mm:ss.000"
                         );
-                        // console.log("dir", dirr);
-                        
+                        console.log("dir", dirr);
                         con.query(
                             "INSERT INTO chats (sender,reciever,image,created_at) VALUES ('" +
                                 senderUser.id +
@@ -238,7 +228,7 @@ con.connect(function (err) {
                                 "')",
                             function (err, res) {
                                 if (err) console.log("error--->", err);
-                                // console.log("res on save image--->");
+                                console.log("res on save image--->");
                                 con.query(
                                     "SELECT * FROM chats WHERE id='" +
                                         res.insertId +
@@ -246,12 +236,11 @@ con.connect(function (err) {
                                     function (err, res) {
                                         if (res) {
                                             if (msg.reciever.socketID == null) {
-                                                // console.log(
-                                                //     "send massage for user back"
-                                                // );
+                                                console.log(
+                                                    "send massage for user back"
+                                                );
                                                 socket.emit("getfile", res);
                                             } else {
-                                                // console.log("else state on saving files")
                                                 socket
                                                     .to(msg.reciever.socketID)
                                                     .emit(
@@ -266,11 +255,12 @@ con.connect(function (err) {
                             }
                         );
                     });
-  
+                }, 5000);
             } else {
-                // console.log("fuck this life");
+                console.log("fuck this life");
             }
 
+            uploader.listen(socket);
         });
     });
     (async () => {

@@ -27130,7 +27130,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         , _hoisted_13))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
           src: $options.profileImage(),
           alt: "My profile",
-          "class": "w-6 h-6 rounded-full order-1"
+          "class": "w-16 h-16 rounded-full order-1"
         }, null, 8
         /* PROPS */
         , _hoisted_14)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), massage.reciever == $props.senderid ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [massage.image == _ctx.NULL ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_17, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(massage.massage), 1
@@ -27144,7 +27144,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         , _hoisted_18))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
           src: $options.adminImage(),
           alt: "My profile",
-          "class": "w-6 h-6 rounded-full order-2"
+          "class": "w-16 h-16 rounded-full order-2"
         }, null, 8
         /* PROPS */
         , _hoisted_19)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]);
