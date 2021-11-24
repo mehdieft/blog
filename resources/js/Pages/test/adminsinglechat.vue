@@ -19,7 +19,7 @@
                 >
                     <div class="flex items-center space-x-4">
                         <img
-                            src="https://images.unsplash.com/photo-1549078642-b2ba4bda0cdb?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=3&amp;w=144&amp;h=144"
+                            :src="userimage()"
                             alt=""
                             class="w-10 sm:w-16 h-10 sm:h-16 rounded-full"
                         />
@@ -178,6 +178,7 @@
                             >
                                 <div>
                                     <span
+                                    v-if="massage.image==null"
                                         class="
                                             px-4
                                             py-2
@@ -190,10 +191,11 @@
                                     >
                                         {{ massage.massage }}
                                     </span>
+                                    <img  v-else :src="massageImage(massage.image)" alt="">
                                 </div>
                             </div>
                             <img
-                                src="https://images.unsplash.com/photo-1549078642-b2ba4bda0cdb?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=3&amp;w=144&amp;h=144"
+                                :src="adminImage()"
                                 alt="My profile"
                                 class="w-6 h-6 rounded-full order-1"
                             />
@@ -215,6 +217,7 @@
                             >
                                 <div>
                                     <span
+                                    v-if="massage.image==null"
                                         class="
                                             px-4
                                             py-2
@@ -226,10 +229,11 @@
                                         "
                                         >{{ massage.massage }}</span
                                     >
+                                    <img :src="massageImage(massage.image)" v-else alt="">
                                 </div>
                             </div>
                             <img
-                                src="https://images.unsplash.com/photo-1590031905470-a1a1feacbb0b?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=3&amp;w=144&amp;h=144"
+                                :src="userimage()"
                                 alt="My profile"
                                 class="w-6 h-6 rounded-full order-2"
                             />
@@ -475,19 +479,25 @@
 import io from "socket.io-client";
 import AppLayout from "../../Layouts/AppLayout.vue";
 import Welcome from "@/Jetstream/Welcome.vue";
+import SocketIOFileUpload from "socketio-file-upload";
+
 let socket = null;
+let uploader = null;
 export default {
-    props: ["massages", "admin", "senderUser", "senderid"],
+    props: ["massages", "admin", "senderUser", "senderid","userImage","adminImage"],
     data() {
         return {
             massage: "hello zepp",
             massagesList: [],
             user: "",
+             basepath: "http://localhost:8000/",
         };
     },
     mounted() {
         this.massagesList = this.massages;
         console.log("adminnnnnnnnnnnnn emaillll", this.admin);
+        console.log("user image--->>",this.userImage[0]);
+        console.log("userImage===>",this.adminImage);
 
         this.user = this.senderUser;
         socket = io.connect("http://localhost:5000");
@@ -509,6 +519,26 @@ export default {
         });
     },
     methods: {
+        //user image belongs to the user that sent massage
+        massageImage(item){
+            return this.basepath+item
+
+        },
+      userimage(){
+          if(this.userImage[0].profile_photo_path==null){
+              return this.basepath +"userdefault.png"
+          }else{
+              return this.basepath+ this.userImage[0].profile_photo_path;
+          }
+      },
+      adminImage(){
+          if(this.adminImage==null){
+              return this.basepath +"userdefault.png"
+          }else{
+              return this.basepath+this.adminImage
+          }
+      },
+       
         sendmassage() {
             socket.emit("adminmassage", {
                 sender: this.senderid,
