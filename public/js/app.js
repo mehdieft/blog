@@ -21466,7 +21466,7 @@ var uploader = null;
   props: ["massages", "admin", "senderUser", "senderid", "userImage", "adminImage"],
   data: function data() {
     return {
-      massage: "hello zepp",
+      massage: "",
       massagesList: [],
       user: "",
       basepath: "http://localhost:8000/"
@@ -21512,36 +21512,42 @@ var uploader = null;
         return this.basepath + this.userImage[0].profile_photo_path;
       }
     },
-    adminImage: function adminImage() {
+    adminImageLocation: function adminImageLocation() {
+      console.log("admin image its");
+
       if (this.adminImage == null) {
         return this.basepath + "userdefault.png";
       } else {
-        return this.basepath + this.adminImage;
+        return this.basepath + 'storage/' + this.adminImage;
       }
     },
     sendmassage: function sendmassage() {
       var _this2 = this;
 
-      socket.emit("adminmassage", {
-        sender: this.senderid,
-        reciever: this.user.id,
-        massage: this.massage
-      });
-      socket.off("get").on("get", function (msg) {
-        console.log("massage-------", msg[0]);
-
-        var duplicateMassage = _this2.massagesList.find(function (o) {
-          o.id == msg[0].id;
-          console.log("find", duplicateMassage);
+      if (this.massage != "") {
+        socket.emit("adminmassage", {
+          sender: this.senderid,
+          reciever: this.user.id,
+          massage: this.massage
         });
+        socket.off("get").on("get", function (msg) {
+          console.log("massage-------", msg[0]);
 
-        if (duplicateMassage == undefined) {
-          _this2.massagesList.push(msg[0]);
-        } else {
-          console.log("fucker");
-        }
-      });
-      this.massage = "";
+          var duplicateMassage = _this2.massagesList.find(function (o) {
+            o.id == msg[0].id;
+            console.log("find", duplicateMassage);
+          });
+
+          if (duplicateMassage == undefined) {
+            _this2.massagesList.push(msg[0]);
+          } else {
+            console.log("fucker");
+          }
+        });
+        this.massage = "";
+      } else {
+        alert("please type something");
+      }
     }
   },
   components: {
@@ -26654,17 +26660,11 @@ var _hoisted_26 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 /* HOISTED */
 );
 
-var _hoisted_27 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-  type: "submit"
-}, null, -1
-/* HOISTED */
-);
-
-var _hoisted_28 = {
+var _hoisted_27 = {
   "class": "absolute right-0 items-center inset-y-0 hidden sm:flex"
 };
 
-var _hoisted_29 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+var _hoisted_28 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
   xmlns: "http://www.w3.org/2000/svg",
   fill: "none",
   viewBox: "0 0 24 24",
@@ -26679,9 +26679,9 @@ var _hoisted_29 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 /* HOISTED */
 );
 
-var _hoisted_30 = [_hoisted_29];
+var _hoisted_29 = [_hoisted_28];
 
-var _hoisted_31 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+var _hoisted_30 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
   type: "button",
   "class": "inline-flex items-center justify-center rounded-full h-10 w-10 transition duration-500 ease-in-out text-gray-500 hover:bg-gray-300 focus:outline-none"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
@@ -26704,7 +26704,7 @@ var _hoisted_31 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 /* HOISTED */
 );
 
-var _hoisted_32 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+var _hoisted_31 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
   type: "button",
   "class": "inline-flex items-center justify-center rounded-full h-10 w-10 transition duration-500 ease-in-out text-gray-500 hover:bg-gray-300 focus:outline-none"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
@@ -26722,7 +26722,7 @@ var _hoisted_32 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 /* HOISTED */
 );
 
-var _hoisted_33 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+var _hoisted_32 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
   disabled: "true",
   type: "submit",
   "class": "inline-flex items-center justify-center rounded-full h-12 w-12 transition duration-500 ease-in-out text-white bg-blue-500 hover:bg-blue-400 focus:outline-none"
@@ -26768,9 +26768,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         }, null, 8
         /* PROPS */
         , _hoisted_17))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-          src: $options.adminImage(),
+          src: $options.adminImageLocation(),
           alt: "My profile",
-          "class": "w-6 h-6 rounded-full order-1"
+          "class": "w-16 h-16 rounded-full order-1"
         }, null, 8
         /* PROPS */
         , _hoisted_18)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), massage.reciever == $props.senderid ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [massage.image == null ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_21, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(massage.massage), 1
@@ -26784,7 +26784,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         , _hoisted_22))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
           src: $options.userimage(),
           alt: "My profile",
-          "class": "w-6 h-6 rounded-full order-2"
+          "class": "w-16 h-16 rounded-full order-2"
         }, null, 8
         /* PROPS */
         , _hoisted_23)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]);
@@ -26793,6 +26793,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       ))], 512
       /* NEED_PATCH */
       ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_24, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_25, [_hoisted_26, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
+        "class": "w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-12 bg-gray-200 rounded-full py-3",
         onSubmit: _cache[1] || (_cache[1] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
           return $options.sendmassage();
         }, ["prevent"]))
@@ -26805,9 +26806,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         "class": "w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-12 bg-gray-200 rounded-full py-3"
       }, null, 512
       /* NEED_PATCH */
-      ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.massage]]), _hoisted_27], 32
+      ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.massage]])], 32
       /* HYDRATE_EVENTS */
-      ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_28, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+      ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_27, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
         type: "file",
         multiple: "",
         ref: "file",
@@ -26825,7 +26826,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         }),
         type: "button",
         "class": "inline-flex items-center justify-center rounded-full h-10 w-10 transition duration-500 ease-in-out text-gray-500 hover:bg-gray-300 focus:outline-none"
-      }, _hoisted_30), _hoisted_31, _hoisted_32, _hoisted_33])])])])])];
+      }, _hoisted_29), _hoisted_30, _hoisted_31, _hoisted_32])])])])])];
     }),
     _: 1
     /* STABLE */

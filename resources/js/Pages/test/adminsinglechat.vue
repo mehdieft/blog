@@ -195,9 +195,9 @@
                                 </div>
                             </div>
                             <img
-                                :src="adminImage()"
+                                :src="adminImageLocation()"
                                 alt="My profile"
-                                class="w-6 h-6 rounded-full order-1"
+                                class="w-16 h-16 rounded-full order-1"
                             />
                         </div>
                         <div
@@ -235,7 +235,7 @@
                             <img
                                 :src="userimage()"
                                 alt="My profile"
-                                class="w-6 h-6 rounded-full order-2"
+                                class="w-16 h-16 rounded-full order-2"
                             />
                         </div>
                     </div>
@@ -276,7 +276,16 @@
                                 </svg>
                             </button>
                         </span>
-                        <form @submit.prevent="sendmassage()">
+                        <form class="
+                                w-full
+                                focus:outline-none focus:placeholder-gray-400
+                                text-gray-600
+                                placeholder-gray-600
+                                pl-12
+                                bg-gray-200
+                                rounded-full
+                                py-3
+                            " @submit.prevent="sendmassage()">
                             <input
                                 v-model="massage"
                                 type="text"
@@ -293,7 +302,7 @@
                                     py-3
                                 "
                             />
-                            <input type="submit" />
+                            
                         </form>
                         <div
                             class="
@@ -487,7 +496,7 @@ export default {
     props: ["massages", "admin", "senderUser", "senderid","userImage","adminImage"],
     data() {
         return {
-            massage: "hello zepp",
+            massage: "",
             massagesList: [],
             user: "",
              basepath: "http://localhost:8000/",
@@ -531,15 +540,17 @@ export default {
               return this.basepath+ this.userImage[0].profile_photo_path;
           }
       },
-      adminImage(){
+      adminImageLocation(){
+          console.log("admin image its")
           if(this.adminImage==null){
               return this.basepath +"userdefault.png"
           }else{
-              return this.basepath+this.adminImage
+              return this.basepath+ 'storage/'+ this.adminImage
           }
       },
        
         sendmassage() {
+            if(this.massage != ""){
             socket.emit("adminmassage", {
                 sender: this.senderid,
                 reciever: this.user.id,
@@ -557,8 +568,11 @@ export default {
                     console.log("fucker");
                 }
             });
-
             this.massage = "";
+            }else{
+                alert("please type something")
+            }
+
         },
     },
     components: {
