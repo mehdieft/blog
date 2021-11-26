@@ -21463,9 +21463,10 @@ __webpack_require__.r(__webpack_exports__);
 var socket = null;
 var uploader = null;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ["massages", "admin", "senderUser", "senderid", "userImage", "adminImage"],
+  props: ["massages", "admin", "senderUser", "senderid", "userImage", "adminImage", "reciever"],
   data: function data() {
     return {
+      userobj: null,
       massage: "",
       massagesList: [],
       user: "",
@@ -21475,12 +21476,14 @@ var uploader = null;
   mounted: function mounted() {
     var _this = this;
 
-    this.massagesList = this.massages;
-    console.log("adminnnnnnnnnnnnn emaillll", this.admin);
-    console.log("user image--->>", this.userImage[0]);
-    console.log("userImage===>", this.adminImage);
+    this.massagesList = this.massages; // console.log("adminnnnnnnnnnnnn emaillll", this.admin);
+    // console.log("user image--->>",this.userImage[0]);
+    // console.log("userImage===>",this.adminImage);
+
+    console.log("userEmail we sent to socket", this.reciever);
     this.user = this.senderUser;
     socket = socket_io_client__WEBPACK_IMPORTED_MODULE_0__["default"].connect("http://localhost:5000");
+    this.uploader = new (socketio_file_upload__WEBPACK_IMPORTED_MODULE_3___default())(socket);
     socket.off("private-massage").on("private-massage", function (msg) {
       console.log("massage-------", msg[0]);
 
@@ -21499,8 +21502,44 @@ var uploader = null;
     socket.emit("findme", {
       email: this.admin
     });
+    socket.emit('finduser', {
+      email: this.reciever[0].email
+    });
+    socket.on('userObj', function (msg) {
+      _this.userObj = msg;
+      console.log("userobj====>", msg);
+    });
   },
   methods: {
+    previewFiles: function previewFiles(event) {
+      var _this2 = this;
+
+      console.log("********", event.target.files);
+      socket.emit("filesend", {
+        file: this.uploader.listenOnInput(this.$refs.file),
+        sender: this.admin,
+        reciever: this.userObj
+      }); //method on get data back
+
+      socket.off("getfile").on("getfile", function (msg) {
+        console.log("my file send back---->", msg);
+
+        _this2.massagesList.push(msg[0]);
+
+        var duplicateMassage = _this2.massagesList.find(function (o) {
+          o.id == msg[0].id;
+          console.log("find", duplicateMassage);
+        });
+
+        if (duplicateMassage == undefined) {
+          _this2.massagesList.push(msg[0]);
+
+          console.log("fucking massageList-----", _this2.massagesList.length);
+        } else {
+          console.log("fucker");
+        }
+      });
+    },
     //user image belongs to the user that sent massage
     massageImage: function massageImage(item) {
       return this.basepath + item;
@@ -21522,7 +21561,7 @@ var uploader = null;
       }
     },
     sendmassage: function sendmassage() {
-      var _this2 = this;
+      var _this3 = this;
 
       if (this.massage != "") {
         socket.emit("adminmassage", {
@@ -21533,13 +21572,13 @@ var uploader = null;
         socket.off("get").on("get", function (msg) {
           console.log("massage-------", msg[0]);
 
-          var duplicateMassage = _this2.massagesList.find(function (o) {
+          var duplicateMassage = _this3.massagesList.find(function (o) {
             o.id == msg[0].id;
             console.log("find", duplicateMassage);
           });
 
           if (duplicateMassage == undefined) {
-            _this2.massagesList.push(msg[0]);
+            _this3.massagesList.push(msg[0]);
           } else {
             console.log("fucker");
           }
@@ -26813,7 +26852,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         multiple: "",
         ref: "file",
         onChange: _cache[2] || (_cache[2] = function () {
-          return _ctx.previewFiles && _ctx.previewFiles.apply(_ctx, arguments);
+          return $options.previewFiles && $options.previewFiles.apply($options, arguments);
         }),
         style: {
           "display": "none"

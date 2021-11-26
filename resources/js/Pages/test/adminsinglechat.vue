@@ -493,9 +493,10 @@ import SocketIOFileUpload from "socketio-file-upload";
 let socket = null;
 let uploader = null;
 export default {
-    props: ["massages", "admin", "senderUser", "senderid","userImage","adminImage"],
+    props: ["massages", "admin", "senderUser", "senderid","userImage","adminImage","reciever"],
     data() {
         return {
+            userobj:null,
             massage: "",
             massagesList: [],
             user: "",
@@ -504,12 +505,14 @@ export default {
     },
     mounted() {
         this.massagesList = this.massages;
-        console.log("adminnnnnnnnnnnnn emaillll", this.admin);
-        console.log("user image--->>",this.userImage[0]);
-        console.log("userImage===>",this.adminImage);
+        // console.log("adminnnnnnnnnnnnn emaillll", this.admin);
+        // console.log("user image--->>",this.userImage[0]);
+        // console.log("userImage===>",this.adminImage);
+        console.log("userEmail we sent to socket",this.reciever)
 
         this.user = this.senderUser;
         socket = io.connect("http://localhost:5000");
+        this.uploader = new SocketIOFileUpload(socket);
             socket.off("private-massage").on("private-massage", (msg) => {
                 console.log("massage-------", msg[0]);
                 let duplicateMassage = this.massagesList.find((o) => {
@@ -526,8 +529,38 @@ export default {
         socket.emit("findme", {
             email: this.admin,
         });
+        socket.emit('finduser',{
+            email:this.reciever[0].email
+        });
+        socket.on('userObj',(msg)=>{
+            this.userObj=msg;
+            console.log("userobj====>",msg)
+        })
     },
     methods: {
+         previewFiles(event) {
+            console.log("********", event.target.files);
+            socket.emit("filesend", {
+                file: this.uploader.listenOnInput(this.$refs.file),
+                sender: this.admin,
+                reciever: this.userObj,
+            });
+            //method on get data back
+            socket.off("getfile").on("getfile", (msg) => {
+                console.log("my file send back---->", msg);
+                this.massagesList.push(msg[0]);
+                let duplicateMassage = this.massagesList.find((o) => {
+                    o.id == msg[0].id;
+                    console.log("find", duplicateMassage);
+                });
+                if (duplicateMassage == undefined) {
+                    this.massagesList.push(msg[0]);
+                    console.log("fucking massageList-----",this.massagesList.length);
+                } else {
+                    console.log("fucker");
+                }
+            });
+        },
         //user image belongs to the user that sent massage
         massageImage(item){
             return this.basepath+item

@@ -63,7 +63,7 @@ class mehdiTestController extends Controller
     }
     public function adminchatwithuser(Request $request){
         $massages=Chat::where('sender',$request->id)->orwhere('reciever',$request->id)->get();
-        $reciever=User::where('id',$request->id)->select('email');
+        $reciever=User::where('id',$request->id)->get('email');
         $admin=Auth::user()->email;
         $userImage=User::where('id',$request->id)->get('profile_photo_path');
         $user=User::where('id',$request->id)->first();

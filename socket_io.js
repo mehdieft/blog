@@ -59,6 +59,11 @@ io.on("connection", (socket) => {
         if (obj.email == "mehdi@gmail.com") {
             users = usersData.filter((o) => o.email != "mehdi@gmail.com");
             //   console.log('all users----for admin',users);
+            //method for usert object
+            socket.on('finduser',(msg)=>{
+                userObj=usersData.find((o)=>o.email==msg.email) 
+                socket.emit('userObj',userObj)
+            })
             socket.emit("users", users);
             socket.on("adminmassage", (msg) => {
                 console.log("whtas massage");

@@ -57,6 +57,7 @@
     import { Link } from '@inertiajs/inertia-vue3'
     
     let socket = null;
+    
 export default {
   components: {Link},
   data(){
